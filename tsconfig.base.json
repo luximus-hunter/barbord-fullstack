@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "baseUrl": ".",
+    "types": ["node"],
+    "paths": {
+      "@repo/db": ["packages/db"],
+      "@repo/contract": ["packages/contract"],
+      "@repo/gateway": ["packages/gateway"]
+    }
+  }
+}

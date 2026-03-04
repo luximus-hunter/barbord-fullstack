@@ -1,20 +1,22 @@
 {
   "name": "barbord-fullstack",
   "private": true,
+  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937",
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "start": "turbo start",
+    "db:generate": "pnpm --filter @repo/db generate",
+    "db:push": "pnpm --filter @repo/db push",
+    "api:dev": "pnpm --filter @repo/api dev",
+    "api:build": "pnpm --filter @repo/api build",
+    "api:generate": "pnpm --filter @repo/api run generate",
+    "api:start": "pnpm --filter @repo/api start",
+    "web:dev": "turbo dev --filter @repo/web --filter @repo/api",
+    "web:build": "pnpm --filter @repo/web build",
+    "web:start": "pnpm --filter @repo/web start"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
-    "turbo": "^2.8.7",
-    "typescript": "5.9.2"
-  },
-  "packageManager": "pnpm@9.0.0",
-  "engines": {
-    "node": ">=18"
+    "turbo": "^2.0.0"
   }
 }

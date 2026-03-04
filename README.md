@@ -1,135 +1,85 @@
-# Turborepo starter
+# Barbord Monorepo
 
-This Turborepo starter is maintained by the Turborepo core team.
+## Getting Started
 
-## Using this example
+To get started with the Barbord Monorepo, follow these steps:
 
-Run the following command:
+1. Install [VSCode](https://code.visualstudio.com/) and the recommended extensions. These should be prompted when you open the project, but you can also find them in `.vscode/extensions.json`.
+2. Install [NodeJS](https://nodejs.org/) and [pnpm](https://pnpm.io/).
+3. Set up the environment variables. You can copy the `.env.example` files in each package to `.env` and fill in the values. Do this for:
+   - `@repo/api`
+   - `@repo/web`
+   - `@repo/db`
+4. Run `pnpm install` to install the dependencies for all apps and packages.
+5. Run `pnpm dev` to start the development servers for the apps.
 
-```sh
-npx create-turbo@latest
+### Work on a specific app or package
+
+To work on a specific app or package, you can run the corresponding command:
+
+**Database:**
+
+- `pnpm db:generate` - Generate Prisma client for `@repo/db`
+- `pnpm db:push` - Push database schema changes for `@repo/db`
+
+**API:**
+
+- `pnpm api:dev` - Start development server for `@repo/api`
+- `pnpm api:build` - Build the production version of `@repo/api`
+- `pnpm api:start` - Start the production server for `@repo/api`
+- `pnpm api:generate` - Generate OpenAPI spec for `@repo/api`
+
+**Web:**
+
+- `pnpm web:dev` - Start development server for `@repo/web` with API proxy
+- `pnpm web:build` - Build the production version of `@repo/web`
+- `pnpm web:start` - Start the production server for `@repo/web`
+
+## Apps and packages
+
+**Apps**
+
+- [ ] `@repo/client`: A website frontend built with `TBD`
+- [ ] `@repo/desktop`: A desktop application built with Tauri
+- [ ] `@repo/api`: A backend api server built with NextJS
+
+**Packages**
+
+- [x] `@repo/db`: A package for database access and management. This is a server side package.
+- [x] `@repo/contract`: A package for shared types and validation schemas. This is a client and server side package.
+- [x] `@repo/gateway`: A package for communication with the backend api. This is a client side package.
+
+> **Currently in progress: `@repo/api`:**
+>
+> - Product Order History
+> - Product Stock History
+>
+> The entire progress is in [TODO.md](./TODO.md)
+
+**Relationships**
+
+```mermaid
+flowchart TB
+  subgraph "Apps"
+    WEB["@repo/client (Website)"]
+    DESKTOP["@repo/desktop (Desktop)"]
+    GATEWAY["@repo/gateway (API Library)"]
+  end
+
+
+  subgraph "Server"
+    API["@repo/api (NextJS API)"]
+
+    CONTRACT["@repo/contract (Zod Schemas)"]
+    DB["@repo/db (Prisma)"]
+  end
+
+  WEB --> GATEWAY
+  DESKTOP --> GATEWAY
+
+  GATEWAY -. HTTP .-> API
+  GATEWAY -.-> CONTRACT
+
+  API --> CONTRACT
+  API --> DB
 ```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
-```
-
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-# With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)

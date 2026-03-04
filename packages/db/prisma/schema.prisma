@@ -1,0 +1,193 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model Announcement {
+  id       Int    @id @default(autoincrement())
+  title    String
+  content  String @db.VarChar(1000)
+  authorId Int
+  color    Color?
+
+  author Admin @relation(fields: [authorId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id             Int       @id @default(autoincrement())
+  email          String
+  phonenumber    String
+  name           String
+  saldo          Decimal   @default(0) @db.Decimal(10, 2)
+  lastorder      DateTime?
+  archived       Boolean   @default(false)
+  saldoReminders Int       @default(0)
+
+  exemptForReminders Boolean @default(false)
+  exemptForFines     Boolean @default(false)
+
+  orders         Order[]
+  topups         Topup[]
+  AutomaticTopup AutomaticTopup[]
+  userSettings   UserSettings[]
+}
+
+model Admin {
+  id          Int     @id @default(autoincrement())
+  username    String  @unique
+  password    String
+  displayname String
+  archived    Boolean @default(false)
+
+  topups             Topup[]
+  Anouncement        Announcement[]
+  itemStockHistories ItemStockHistory[]
+  itemOrderHistories ItemOrderHistory[]
+}
+
+model Item {
+  id           Int      @id @default(autoincrement())
+  name         String
+  displayIndex Int
+  price        Decimal  @db.Decimal(10, 2)
+  salePrice    Decimal? @db.Decimal(10, 2)
+  packageSize  Int      @default(-1) // Default to -1, meaning it's not sold in packages
+  archived     Boolean  @default(false)
+
+  orders         Order[]
+  itemCategoryId Int?
+  itemImageId    String?
+
+  ItemCategory ItemCategory? @relation(fields: [itemCategoryId], references: [id], onDelete: SetNull)
+
+  itemStockHistoryRows ItemStockHistoryRow[]
+  itemOrderHistoryRows ItemOrderHistoryRow[]
+}
+
+model ItemStockHistory {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @default(now())
+  adminId Int
+
+  admin                Admin                 @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  itemStockHistoryRows ItemStockHistoryRow[]
+}
+
+model ItemStockHistoryRow {
+  id                 Int @id @default(autoincrement())
+  itemStockHistoryId Int
+  itemId             Int
+  stockCounted       Int // Stock according to physical count
+
+  itemStockHistory ItemStockHistory @relation(fields: [itemStockHistoryId], references: [id], onDelete: Cascade)
+  item             Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
+
+model ItemOrderHistory {
+  id      Int      @id @default(autoincrement())
+  date    DateTime @default(now())
+  adminId Int
+
+  admin                Admin                 @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  itemOrderHistoryRows ItemOrderHistoryRow[]
+}
+
+model ItemOrderHistoryRow {
+  id                 Int @id @default(autoincrement())
+  itemOrderHistoryId Int
+  itemId             Int
+
+  amount Int
+
+  itemOrderHistory ItemOrderHistory @relation(fields: [itemOrderHistoryId], references: [id], onDelete: Cascade)
+  item             Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)
+}
+
+model ItemCategory {
+  id           Int    @id @default(autoincrement())
+  name         String
+  displayIndex Int
+
+  items Item[]
+}
+
+model Order {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  productId    Int
+  productPrice Decimal  @db.Decimal(10, 2)
+  quantity     Int
+  fine         Decimal? @db.Decimal(10, 2)
+  date         DateTime @default(now())
+
+  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  product Item @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Topup {
+  id       Int      @id @default(autoincrement())
+  adminId  Int
+  userId   Int
+  amount   Decimal  @db.Decimal(10, 2)
+  oldSaldo Decimal  @db.Decimal(10, 2)
+  newSaldo Decimal  @db.Decimal(10, 2)
+  date     DateTime @default(now())
+  checked  Boolean  @default(false)
+
+  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SettingsV2 {
+  key   String @id @db.VarChar(255)
+  value String @db.VarChar(5000)
+}
+
+model UserSettings {
+  userId Int
+  key    String @db.VarChar(255)
+  value  String @db.VarChar(5000)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, key])
+}
+
+model AutomaticTopup {
+  id       Int       @id @default(autoincrement())
+  userId   Int
+  amount   Decimal   @db.Decimal(10, 2)
+  interval Interval
+  lastRun  DateTime?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Interval {
+  w // weekly
+  m // monthly
+}
+
+enum Color {
+  crimson
+  red
+  orange
+  yellow
+  blue
+  green
+  purple
+}
+
+enum Weekday {
+  ma
+  di
+  wo
+  do
+  vr
+  za
+  zo
+}

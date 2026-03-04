@@ -1,0 +1,11 @@
+{
+  "name": "@repo/contract",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "types": "index.ts",
+  "packageManager": "pnpm@10.29.3",
+  "dependencies": {
+    "zod": "^4.3.6"
+  }
+}
