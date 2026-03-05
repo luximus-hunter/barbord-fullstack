@@ -2,8 +2,7 @@
 
 ## @repo/api
 
-- [x] API versioning
-- [x] CORS configuration
+- [ ] CORS configuration
 - [ ] Data routes
   - [x] Admin
   - [x] Announcement
@@ -41,7 +40,6 @@
 ## @repo/web
 
 - [ ] Fill in TODO list
-- [ ] Depend on API version
 
 ## @repo/desktop
 
@@ -66,4 +64,3 @@
   - [ ] Add invalidation calls to relevant methods
   - [x] Add token usage to methods
   - [x] Implement token usage
-- [x] Add API versioning support
