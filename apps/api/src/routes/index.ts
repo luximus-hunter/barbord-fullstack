@@ -1,15 +1,15 @@
 import { Hono } from "hono";
-import users from "./users.routes";
-import products from "./products.routes";
-import admins from "./admins.routes";
+import users from "./user.routes";
+import products from "./product.routes";
+import admins from "./admin.routes";
 import auth from "./auth.routes";
-import announcements from "./announcements.routes";
+import announcements from "./announcement.routes";
 import settings from "./settings.route";
-import automaticTopups from "./automatic-topups.routes";
+import automaticTopups from "./automatic-topup.routes";
 import productImages from "./product-images.routes";
 import productCategories from "./product-categories.route";
-import topups from "./topups.routes";
-import orders from "./orders.routes";
+import topups from "./topup.routes";
+import orders from "./order.routes";
 
 const routes = new Hono();
 
