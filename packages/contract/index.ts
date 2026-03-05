@@ -1,6 +1,5 @@
 export * from "./src/admin";
 export * from "./src/announcement";
-export * from "./src/api-status";
 export * from "./src/auth";
 export * from "./src/automatic-topup";
 export * from "./src/enums";

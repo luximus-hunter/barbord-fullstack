@@ -13,6 +13,7 @@ export const AuthUserDTO = AdminDTO.pick({
 })
   .extend({
     token: z.string().optional(),
+    exp: z.number().optional(),
   })
   .strict();
 

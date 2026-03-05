@@ -4,8 +4,8 @@ import { router } from "../router";
 import { createFileRoute } from "@tanstack/solid-router";
 import { FormField } from "../components/ui/form-field";
 import { useQuery } from "@tanstack/solid-query";
-import { gateway } from "../gateway";
 import { Show } from "solid-js";
+import { Gateway } from "@repo/gateway";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -14,8 +14,7 @@ export const Route = createFileRoute("/login")({
 function LoginPage() {
   const adminQuery = useQuery(() => ({
     queryKey: ["admin"],
-    queryFn: () => gateway()!.admins.get(),
-    enabled: !!gateway(),
+    queryFn: () => Gateway.admins.get(),
   }));
 
   const { form, errors, loading, serverError, handleInput, handleSubmit } =
@@ -25,7 +24,7 @@ function LoginPage() {
         password: "",
       },
       onSubmit: async (data) => {
-        await gateway()!.auth.login(data);
+        await Gateway.auth.login(data);
       },
       onSuccess: () => {
         router.navigate({ to: "/users" });

@@ -4,12 +4,10 @@ import {
   createRootRoute,
   useNavigate,
 } from "@tanstack/solid-router";
-import { RootErrorPage } from "../errorPages/rootError";
-import { gateway } from "../gateway";
+import { Gateway } from "@repo/gateway";
 
 export const Route = createRootRoute({
   component: RootComponent,
-  errorComponent: (error) => <RootErrorPage error={error} />,
 });
 
 function RootComponent() {
@@ -24,7 +22,7 @@ function RootComponent() {
         <Link to="/login">Login</Link>
         <span
           on:click={async () => {
-            await gateway()!.auth.logout();
+            await Gateway.auth.logout();
             navigate({ to: "/" });
           }}
         >

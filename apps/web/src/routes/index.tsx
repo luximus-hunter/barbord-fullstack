@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { useQuery } from "@tanstack/solid-query";
-import { gateway } from "../gateway";
+import { Gateway } from "@repo/gateway";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -9,9 +9,8 @@ export const Route = createFileRoute("/")({
 function RouteComponent() {
   const shopQuery = useQuery(() => ({
     queryKey: ["shop"],
-    queryFn: () => gateway()!.shop.getShopData(),
+    queryFn: () => Gateway.shop.getShopData(),
     staleTime: 1000 * 60, // 1 minute
-    enabled: !!gateway,
   }));
 
   return (

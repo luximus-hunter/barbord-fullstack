@@ -13,13 +13,14 @@ import { topupsGateway } from "./src/topup";
 import { productOrderHistoryGateway } from "./src/product-order-history";
 import { productStockHistoryGateway } from "./src/product-stock-history";
 
-const baseApiUrl = process.env.API_BASE_URL;
+// @ts-ignore
+const baseApiUrl = import.meta.env.VITE_API_BASE_URL;
 
 if (!baseApiUrl) {
   throw new Error("API_BASE_URL environment variable is not set");
 }
 
-export const gateway = {
+export const Gateway = {
   auth: authGateway(baseApiUrl),
   settings: settingsGateway(baseApiUrl),
   shop: shopGateway(baseApiUrl),

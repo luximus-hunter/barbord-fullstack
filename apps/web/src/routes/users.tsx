@@ -1,6 +1,6 @@
+import { Gateway } from "@repo/gateway";
 import { useQuery } from "@tanstack/solid-query";
 import { createFileRoute } from "@tanstack/solid-router";
-import { gateway } from "../gateway";
 
 export const Route = createFileRoute("/users")({
   component: UsersPage,
@@ -9,9 +9,8 @@ export const Route = createFileRoute("/users")({
 function UsersPage() {
   const usersQuery = useQuery(() => ({
     queryKey: ["users"],
-    queryFn: () => gateway()!.users.get(),
+    queryFn: () => Gateway.users.get(),
     staleTime: 1000 * 60, // 1 minute
-    enabled: !!gateway(),
   }));
 
   return (
