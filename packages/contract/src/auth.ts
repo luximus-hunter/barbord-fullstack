@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AdminDTO, CreateAdminDTO } from "./admin";
+import { AdminDTO, CreateAdminDTO } from "./admin.js";
 
 export const LoginDTO = CreateAdminDTO.pick({
   username: true,
@@ -13,6 +13,7 @@ export const AuthUserDTO = AdminDTO.pick({
 })
   .extend({
     token: z.string().optional(),
+    exp: z.number().optional(),
   })
   .strict();
 

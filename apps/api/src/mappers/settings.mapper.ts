@@ -1,5 +1,5 @@
-import { SettingsDTO } from "@repo/contract";
-import { SettingsV2 } from "@repo/db";
+import { SettingsDTO } from "@barbord/contract";
+import { SettingsV2 } from "@barbord/db";
 
 export function toSettingsDTO(settingEntries: SettingsV2[]): SettingsDTO {
   const settingsObject = settingEntries.reduce(

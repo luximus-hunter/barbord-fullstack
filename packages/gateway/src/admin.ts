@@ -1,4 +1,4 @@
-import { AdminDTO, CreateAdminDTO, UpdateAdminDTO } from "@repo/contract";
+import { AdminDTO, CreateAdminDTO, UpdateAdminDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const adminsGateway = (baseUrl: string) => ({

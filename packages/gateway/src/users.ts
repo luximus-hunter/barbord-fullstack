@@ -1,4 +1,4 @@
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@repo/contract";
+import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const usersGateway = (baseUrl: string) => ({

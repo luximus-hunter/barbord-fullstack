@@ -7,9 +7,9 @@
     "baseUrl": ".",
     "types": ["node"],
     "paths": {
-      "@repo/db": ["packages/db"],
-      "@repo/contract": ["packages/contract"],
-      "@repo/gateway": ["packages/gateway"]
+      "@barbord/db": ["packages/db"],
+      "@barbord/contract": ["packages/contract"],
+      "@barbord/gateway": ["packages/gateway"]
     }
   }
 }

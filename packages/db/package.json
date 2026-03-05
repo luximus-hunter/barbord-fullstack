@@ -1,17 +1,24 @@
 {
-  "name": "@repo/db",
+  "name": "@barbord/db",
+  "type": "module",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
-  "types": "index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
   "packageManager": "pnpm@10.29.3",
   "prisma": {
     "schema": "prisma/schema.prisma"
   },
   "scripts": {
+    "build": "tsdown --config ../../tsdown.config.ts",
     "postinstall": "prisma generate",
-    "generate": "prisma generate",
-    "push": "prisma db push"
+    "generate": "dotenv -e .env.development -- prisma generate",
+    "push": "dotenv -e .env.development -- prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^7.4.0",
@@ -20,6 +27,8 @@
     "prisma": "^7.4.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3"
+    "@types/node": "^22.15.3",
+    "dotenv-cli": "^8.0.0",
+    "tsdown": "^0.15.6"
   }
 }

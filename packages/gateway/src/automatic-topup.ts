@@ -2,7 +2,7 @@ import {
   AutomaticTopupDTO,
   CreateAutomaticTopupDTO,
   UpdateAutomaticTopupDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const automaticTopupsGateway = (baseUrl: string) => ({

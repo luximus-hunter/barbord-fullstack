@@ -1,29 +1,56 @@
 {
   "$schema": "https://turborepo.dev/schema.json",
-  "ui": "stream",
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**", "!.turbo/**"]
-    },
-    "lint": {
-      "dependsOn": ["^lint"]
-    },
-    "check-types": {
-      "dependsOn": ["^check-types"]
+      "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
+      "env": [
+        "DATABASE_URL",
+        "BLOB_READ_WRITE_TOKEN",
+        "CRON_SECRET",
+        "JWT_SECRET",
+        "RESEND_SENDER_EMAIL",
+        "RESEND_API_KEY",
+        "GITHUB_REPO_TOKEN",
+        "VITE_API_BASE_URL"
+      ]
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": [
+        "DATABASE_URL",
+        "BLOB_READ_WRITE_TOKEN",
+        "CRON_SECRET",
+        "JWT_SECRET",
+        "RESEND_SENDER_EMAIL",
+        "RESEND_API_KEY",
+        "GITHUB_REPO_TOKEN",
+        "VITE_API_BASE_URL"
+      ]
     },
-    "desktop#build": {
-      "dependsOn": ["web#build"]
+    "@barbord/desktop#build": {
+      "dependsOn": ["@barbord/web#build"],
+      "outputs": ["apps/desktop/src-tauri/target/**/*"]
     },
     "start": {
       "dependsOn": ["build"],
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": [
+        "DATABASE_URL",
+        "BLOB_READ_WRITE_TOKEN",
+        "CRON_SECRET",
+        "JWT_SECRET",
+        "RESEND_SENDER_EMAIL",
+        "RESEND_API_KEY",
+        "GITHUB_REPO_TOKEN",
+        "VITE_API_BASE_URL"
+      ]
     }
   }
 }

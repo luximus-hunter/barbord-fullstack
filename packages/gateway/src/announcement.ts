@@ -2,7 +2,7 @@ import {
   AnnouncementDTO,
   CreateAnnouncementDTO,
   UpdateAnnouncementDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const announcementsGateway = (baseUrl: string) => ({

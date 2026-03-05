@@ -1,4 +1,4 @@
-import { CreateProductDTO, UpdateProductDTO, ProductDTO } from "@repo/contract";
+import { CreateProductDTO, UpdateProductDTO, ProductDTO, ProductStockDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const productsGateway = (baseUrl: string) => ({
@@ -59,5 +59,12 @@ export const productsGateway = (baseUrl: string) => ({
       useToken: true,
       method: "POST",
       url: baseUrl + "/products/" + id + "/unarchive",
+    }),
+  stock: () =>
+    fetchWithSchema({
+      useToken: true,
+      method: "GET",
+      url: baseUrl + "/products/stock",
+      responseSchema: ProductStockDTO.array(),
     }),
 });

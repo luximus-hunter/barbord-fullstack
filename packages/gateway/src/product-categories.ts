@@ -2,7 +2,7 @@ import {
   CreateProductCategoryDTO,
   UpdateProductCategoryDTO,
   ProductCategoryDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const productCategoriesGateway = (baseUrl: string) => ({

@@ -1,11 +1,10 @@
-import { UserDTO } from "./user";
-import { ProductDTO } from "./product";
-import { ProductCategoryDTO } from "./product-category";
-import { ProductImageDTO } from "./product-image";
-import { SettingsDTO } from "./settings";
+import { UserDTO } from "./user.js";
+import { ProductDTO } from "./product.js";
+import { ProductCategoryDTO } from "./product-category.js";
+import { SettingsDTO } from "./settings.js";
 import { z } from "zod";
-import { AnnouncementDTO } from "./announcement";
-import { BadgeCategoryEnum } from "./enums";
+import { AnnouncementDTO } from "./announcement.js";
+import { BadgeCategoryEnum } from "./enums.js";
 
 export const ShopDTO = z
   .object({

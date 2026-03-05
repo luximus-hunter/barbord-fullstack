@@ -1,5 +1,5 @@
-import { AutomaticTopup } from "@repo/db";
-import { AutomaticTopupDTO } from "@repo/contract";
+import { AutomaticTopup } from "@barbord/db";
+import { AutomaticTopupDTO } from "@barbord/contract";
 
 export function toAutomaticTopupDTO(
   automaticTopup: AutomaticTopup,

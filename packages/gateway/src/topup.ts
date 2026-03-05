@@ -1,4 +1,4 @@
-import { TopupDTO, CreateTopupDTO } from "@repo/contract";
+import { TopupDTO, CreateTopupDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const topupsGateway = (baseUrl: string) => ({

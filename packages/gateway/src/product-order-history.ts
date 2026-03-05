@@ -5,7 +5,7 @@ import {
   ProductOrderHistoryRowDTO,
   CreateProductOrderHistoryRowDTO,
   UpdateProductOrderHistoryRowDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const productOrderHistoryGateway = (baseUrl: string) => ({

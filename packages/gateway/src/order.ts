@@ -1,4 +1,4 @@
-import { OrderDTO, CreateOrderDTO } from "@repo/contract";
+import { OrderDTO, CreateOrderDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const ordersGateway = (baseUrl: string) => ({
