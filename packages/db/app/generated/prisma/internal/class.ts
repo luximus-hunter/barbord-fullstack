@@ -17,8 +17,8 @@ import type * as Prisma from "./prismaNamespace"
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.4.0",
-  "engineVersion": "ab56fe763f921d033a6c195e7ddeb3e255bdbb57",
+  "clientVersion": "7.4.2",
+  "engineVersion": "94a226be1cf2967af2541cca5529f0f7ba866919",
   "activeProvider": "mysql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"../app/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n}\n\nmodel Announcement {\n  id       Int    @id @default(autoincrement())\n  title    String\n  content  String @db.VarChar(1000)\n  authorId Int\n  color    Color?\n\n  author Admin @relation(fields: [authorId], references: [id], onDelete: Cascade)\n}\n\nmodel User {\n  id             Int       @id @default(autoincrement())\n  email          String\n  phonenumber    String\n  name           String\n  saldo          Decimal   @default(0) @db.Decimal(10, 2)\n  lastorder      DateTime?\n  archived       Boolean   @default(false)\n  saldoReminders Int       @default(0)\n\n  exemptForReminders Boolean @default(false)\n  exemptForFines     Boolean @default(false)\n\n  orders         Order[]\n  topups         Topup[]\n  AutomaticTopup AutomaticTopup[]\n  userSettings   UserSettings[]\n}\n\nmodel Admin {\n  id          Int     @id @default(autoincrement())\n  username    String  @unique\n  password    String\n  displayname String\n  archived    Boolean @default(false)\n\n  topups             Topup[]\n  Anouncement        Announcement[]\n  itemStockHistories ItemStockHistory[]\n  itemOrderHistories ItemOrderHistory[]\n}\n\nmodel Item {\n  id           Int      @id @default(autoincrement())\n  name         String\n  displayIndex Int\n  price        Decimal  @db.Decimal(10, 2)\n  salePrice    Decimal? @db.Decimal(10, 2)\n  packageSize  Int      @default(-1) // Default to -1, meaning it's not sold in packages\n  archived     Boolean  @default(false)\n\n  orders         Order[]\n  itemCategoryId Int?\n  itemImageId    String?\n\n  ItemCategory ItemCategory? @relation(fields: [itemCategoryId], references: [id], onDelete: SetNull)\n\n  itemStockHistoryRows ItemStockHistoryRow[]\n  itemOrderHistoryRows ItemOrderHistoryRow[]\n}\n\nmodel ItemStockHistory {\n  id      Int      @id @default(autoincrement())\n  date    DateTime @default(now())\n  adminId Int\n\n  admin                Admin                 @relation(fields: [adminId], references: [id], onDelete: Cascade)\n  itemStockHistoryRows ItemStockHistoryRow[]\n}\n\nmodel ItemStockHistoryRow {\n  id                 Int @id @default(autoincrement())\n  itemStockHistoryId Int\n  itemId             Int\n  stockCounted       Int // Stock according to physical count\n\n  itemStockHistory ItemStockHistory @relation(fields: [itemStockHistoryId], references: [id], onDelete: Cascade)\n  item             Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)\n}\n\nmodel ItemOrderHistory {\n  id      Int      @id @default(autoincrement())\n  date    DateTime @default(now())\n  adminId Int\n\n  admin                Admin                 @relation(fields: [adminId], references: [id], onDelete: Cascade)\n  itemOrderHistoryRows ItemOrderHistoryRow[]\n}\n\nmodel ItemOrderHistoryRow {\n  id                 Int @id @default(autoincrement())\n  itemOrderHistoryId Int\n  itemId             Int\n\n  amount Int\n\n  itemOrderHistory ItemOrderHistory @relation(fields: [itemOrderHistoryId], references: [id], onDelete: Cascade)\n  item             Item             @relation(fields: [itemId], references: [id], onDelete: Cascade)\n}\n\nmodel ItemCategory {\n  id           Int    @id @default(autoincrement())\n  name         String\n  displayIndex Int\n\n  items Item[]\n}\n\nmodel Order {\n  id           Int      @id @default(autoincrement())\n  userId       Int\n  productId    Int\n  productPrice Decimal  @db.Decimal(10, 2)\n  quantity     Int\n  fine         Decimal? @db.Decimal(10, 2)\n  date         DateTime @default(now())\n\n  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)\n  product Item @relation(fields: [productId], references: [id], onDelete: Cascade)\n}\n\nmodel Topup {\n  id       Int      @id @default(autoincrement())\n  adminId  Int\n  userId   Int\n  amount   Decimal  @db.Decimal(10, 2)\n  oldSaldo Decimal  @db.Decimal(10, 2)\n  newSaldo Decimal  @db.Decimal(10, 2)\n  date     DateTime @default(now())\n  checked  Boolean  @default(false)\n\n  admin Admin @relation(fields: [adminId], references: [id], onDelete: Cascade)\n  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nmodel SettingsV2 {\n  key   String @id @db.VarChar(255)\n  value String @db.VarChar(5000)\n}\n\nmodel UserSettings {\n  userId Int\n  key    String @db.VarChar(255)\n  value  String @db.VarChar(5000)\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@id([userId, key])\n}\n\nmodel AutomaticTopup {\n  id       Int       @id @default(autoincrement())\n  userId   Int\n  amount   Decimal   @db.Decimal(10, 2)\n  interval Interval\n  lastRun  DateTime?\n\n  user User @relation(fields: [userId], references: [id], onDelete: Cascade)\n}\n\nenum Interval {\n  w // weekly\n  m // monthly\n}\n\nenum Color {\n  crimson\n  red\n  orange\n  yellow\n  blue\n  green\n  purple\n}\n\nenum Weekday {\n  ma\n  di\n  wo\n  do\n  vr\n  za\n  zo\n}\n",
   "runtimeDataModel": {
@@ -67,7 +67,9 @@ export interface PrismaClientConstructor {
    * Type-safe database client for TypeScript
    * @example
    * ```
-   * const prisma = new PrismaClient()
+   * const prisma = new PrismaClient({
+   *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * })
    * // Fetch zero or more Announcements
    * const announcements = await prisma.announcement.findMany()
    * ```
@@ -89,7 +91,9 @@ export interface PrismaClientConstructor {
  * Type-safe database client for TypeScript
  * @example
  * ```
- * const prisma = new PrismaClient()
+ * const prisma = new PrismaClient({
+ *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
+ * })
  * // Fetch zero or more Announcements
  * const announcements = await prisma.announcement.findMany()
  * ```
@@ -174,7 +178,7 @@ export interface PrismaClient<
    * ])
    * ```
    * 
-   * Read more in our [docs](https://www.prisma.io/docs/concepts/components/prisma-client/transactions).
+   * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
   $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): runtime.Types.Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
