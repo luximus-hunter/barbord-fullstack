@@ -1,8 +1,18 @@
 import { Hono } from "hono";
 import routes from "./routes";
+import { cors } from "hono/cors";
 
 export function createApp() {
   const app = new Hono();
+
+  app.use(
+    "*",
+    cors({
+      origin: "*",
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      allowHeaders: ["Content-Type", "Authorization"],
+    }),
+  );
 
   app.get("/", (c) => c.text("OK"));
   app.get("/ping", (c) => c.text("pong"));

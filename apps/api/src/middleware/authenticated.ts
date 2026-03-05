@@ -19,10 +19,10 @@ export const authenticated = createMiddleware<Env>(async (c, next) => {
 
   try {
     const payload = await verify(token, process.env.JWT_SECRET || "", "HS256");
-
     const zodResult = AuthUserDTO.safeParse(payload);
 
     if (!zodResult.success) {
+      console.error("Invalid JWT payload:", zodResult.error);
       return c.json({ error: "Invalid JWT payload" }, 401);
     }
 

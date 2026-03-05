@@ -7,7 +7,7 @@ import { zValidator } from "@hono/zod-validator";
 
 const adminRoutes = new Hono();
 
-adminRoutes.get("/", authenticated, async (c) => {
+adminRoutes.get("/", async (c) => {
   const admins = await db.admin.findMany({
     where: { archived: false },
   });
