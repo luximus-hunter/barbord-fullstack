@@ -46,6 +46,12 @@ export const UpdateProductDTO = ProductDTO.pick({
   .partial()
   .strict();
 
+export const ProductStockDTO = z.object({
+  productId: z.number(),
+  stockCount: z.number(),
+});
+
 export type ProductDTO = z.infer<typeof ProductDTO>;
 export type CreateProductDTO = z.infer<typeof CreateProductDTO>;
 export type UpdateProductDTO = z.infer<typeof UpdateProductDTO>;
+export type ProductStockDTO = z.infer<typeof ProductStockDTO>;

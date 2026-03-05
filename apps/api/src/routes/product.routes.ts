@@ -2,8 +2,14 @@ import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated";
 import { db } from "@repo/db";
 import { toProductDTO } from "../mappers/product.mapper";
-import { CreateProductDTO, UpdateProductDTO, ProductDTO } from "@repo/contract";
+import {
+  CreateProductDTO,
+  UpdateProductDTO,
+  ProductDTO,
+  ProductStockDTO,
+} from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
+import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper";
 
 const productRoutes = new Hono();
 
@@ -107,6 +113,66 @@ productRoutes.get("/archived", authenticated, async (c) => {
   });
 
   return c.json<ProductDTO[]>(products.map(toProductDTO));
+});
+
+productRoutes.get("/stock", authenticated, async (c) => {
+  const lastProductStockHistory = await db.itemStockHistory.findFirst({
+    orderBy: { date: "desc" },
+  });
+
+  if (!lastProductStockHistory) {
+    return c.json(
+      { error: "No stock history found. Can't compare to nothing" },
+      404,
+    );
+  }
+
+  const mappedLastProductStockHistory = toProductStockHistoryDTO(
+    lastProductStockHistory,
+  );
+  const productStockHistoryRows = await db.itemStockHistoryRow.findMany({
+    where: { itemStockHistoryId: mappedLastProductStockHistory.id },
+  });
+
+  const productOrderHistoriesRows = await db.itemOrderHistoryRow.findMany({
+    where: {
+      itemOrderHistory: { date: { gt: mappedLastProductStockHistory.date } },
+    },
+  });
+  const orders = await db.order.findMany({
+    where: { date: { gt: mappedLastProductStockHistory.date } },
+  });
+
+  const stockCounts: Record<number, number> = {};
+
+  productStockHistoryRows.forEach((row) => {
+    stockCounts[row.itemId] = row.stockCounted;
+  });
+
+  orders.forEach((order) => {
+    if (stockCounts[order.productId] !== undefined) {
+      stockCounts[order.productId] -= order.quantity;
+    } else {
+      stockCounts[order.productId] = -order.quantity;
+    }
+  });
+
+  productOrderHistoriesRows.forEach((row) => {
+    if (stockCounts[row.itemId] !== undefined) {
+      stockCounts[row.itemId] += row.amount;
+    } else {
+      stockCounts[row.itemId] = row.amount;
+    }
+  });
+
+  const productStock: ProductStockDTO[] = Object.entries(stockCounts).map(
+    ([productId, stockCount]) => ({
+      productId: parseInt(productId, 10),
+      stockCount,
+    }),
+  );
+
+  return c.json<ProductStockDTO[]>(productStock);
 });
 
 export default productRoutes;

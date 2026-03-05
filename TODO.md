@@ -3,7 +3,7 @@
 ## @repo/api
 
 - [ ] CORS configuration
-- [ ] Data routes
+- [x] Data routes
   - [x] Admin
   - [x] Announcement
   - [x] Auth
@@ -12,26 +12,8 @@
   - [x] Product
   - [x] Product Category
   - [x] Product Image
-  - [ ] Product Order History
-    - [ ] GET: `/product-order-history`
-    - [ ] POST: `/product-order-history`
-    - [ ] GET: `/product-order-history/:historyId`
-    - [ ] PUT: `/product-order-history/:historyId`
-    - [ ] DELETE: `/product-order-history/:historyId`
-    - [ ] GET: `/product-order-history/:historyId/rows`
-    - [ ] POST: `/product-order-history/:historyId/rows`
-    - [ ] PUT: `/product-order-history/rows/:historyRowId`
-    - [ ] DELETE: `/product-order-history/rows/:historyRowId`
-  - [ ] Product Stock History
-    - [ ] GET: `/product-stock-history`
-    - [ ] POST: `/product-stock-history`
-    - [ ] GET: `/product-stock-history/:stockId`
-    - [ ] PUT: `/product-stock-history/:stockId`
-    - [ ] DELETE: `/product-stock-history/:stockId`
-    - [ ] GET: `/product-stock-history/:stockId/rows`
-    - [ ] POST: `/product-stock-history/:stockId/rows`
-    - [ ] PUT: `/product-stock-history/rows/:stockRowId`
-    - [ ] DELETE: `/product-stock-history/rows/:stockRowId`
+  - [x] Product Order History
+  - [x] Product Stock History
   - [x] Settings
   - [x] Shop
   - [x] Topup
