@@ -8,15 +8,15 @@ import {
 } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
-const productCategories = new Hono();
+const productCategoryRoutes = new Hono();
 
-productCategories.get("/", authenticated, async (c) => {
+productCategoryRoutes.get("/", authenticated, async (c) => {
   const productCategories = await db.itemCategory.findMany();
 
   return c.json<ProductCategoryDTO[]>(productCategories);
 });
 
-productCategories.post(
+productCategoryRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateProductCategoryDTO),
@@ -31,7 +31,7 @@ productCategories.post(
   },
 );
 
-productCategories.get("/:id", authenticated, async (c) => {
+productCategoryRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const productCategory = await db.itemCategory.findUnique({
@@ -45,7 +45,7 @@ productCategories.get("/:id", authenticated, async (c) => {
   return c.json<ProductCategoryDTO>(productCategory);
 });
 
-productCategories.put(
+productCategoryRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateProductCategoryDTO),
@@ -66,7 +66,7 @@ productCategories.put(
   },
 );
 
-productCategories.delete("/:id", authenticated, async (c) => {
+productCategoryRoutes.delete("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const productCategory = await db.itemCategory.delete({
@@ -80,4 +80,4 @@ productCategories.delete("/:id", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default productCategories;
+export default productCategoryRoutes;

@@ -9,7 +9,7 @@ const MAX_PREFERRED_WIDTH = 400;
 const MAX_PREFERRED_HEIGHT = 400;
 const FOLDER_PREFIX = "images/"; // Including the /
 
-const productImages = new Hono();
+const productImageRoutes = new Hono();
 
 async function getImages() {
   return (
@@ -24,13 +24,13 @@ async function getImages() {
     .filter((img) => img.id !== FOLDER_PREFIX); // Don't include folders itself
 }
 
-productImages.get("/", async (c) => {
+productImageRoutes.get("/", async (c) => {
   const images = await getImages();
 
   return c.json<ProductImageDTO[]>(images);
 });
 
-productImages.post("/", authenticated, async (c) => {
+productImageRoutes.post("/", authenticated, async (c) => {
   const body = await c.req.parseBody();
 
   const requestFiles = Array.isArray(body.files)
@@ -78,7 +78,7 @@ productImages.post("/", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-productImages.delete("/:id", authenticated, async (c) => {
+productImageRoutes.delete("/:id", authenticated, async (c) => {
   const id = c.req.param("id");
 
   try {
@@ -108,4 +108,4 @@ productImages.delete("/:id", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default productImages;
+export default productImageRoutes;

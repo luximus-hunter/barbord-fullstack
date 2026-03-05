@@ -9,15 +9,15 @@ import {
 import { zValidator } from "@hono/zod-validator";
 import { toAutomaticTopupDTO } from "../mappers/automatic-topup.mapper";
 
-const automaticTopups = new Hono();
+const automaticTopupRoutes = new Hono();
 
-automaticTopups.get("/", authenticated, async (c) => {
+automaticTopupRoutes.get("/", authenticated, async (c) => {
   const automaticTopups = await db.automaticTopup.findMany();
 
   return c.json<AutomaticTopupDTO[]>(automaticTopups.map(toAutomaticTopupDTO));
 });
 
-automaticTopups.post(
+automaticTopupRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateAutomaticTopupDTO),
@@ -32,7 +32,7 @@ automaticTopups.post(
   },
 );
 
-automaticTopups.get("/:id", authenticated, async (c) => {
+automaticTopupRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const automaticTopup = await db.automaticTopup.findUnique({
@@ -46,7 +46,7 @@ automaticTopups.get("/:id", authenticated, async (c) => {
   return c.json<AutomaticTopupDTO>(toAutomaticTopupDTO(automaticTopup));
 });
 
-automaticTopups.put(
+automaticTopupRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateAutomaticTopupDTO),
@@ -67,7 +67,7 @@ automaticTopups.put(
   },
 );
 
-automaticTopups.delete("/:id", authenticated, async (c) => {
+automaticTopupRoutes.delete("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const automaticTopup = await db.automaticTopup.delete({
@@ -81,4 +81,4 @@ automaticTopups.delete("/:id", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default automaticTopups;
+export default automaticTopupRoutes;

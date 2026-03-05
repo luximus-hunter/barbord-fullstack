@@ -5,9 +5,9 @@ import { toProductDTO } from "../mappers/product.mapper";
 import { CreateProductDTO, UpdateProductDTO, ProductDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
-const products = new Hono();
+const productRoutes = new Hono();
 
-products.get("/", authenticated, async (c) => {
+productRoutes.get("/", authenticated, async (c) => {
   const products = await db.item.findMany({
     where: { archived: false },
   });
@@ -15,7 +15,7 @@ products.get("/", authenticated, async (c) => {
   return c.json<ProductDTO[]>(products.map(toProductDTO));
 });
 
-products.post(
+productRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateProductDTO),
@@ -30,7 +30,7 @@ products.post(
   },
 );
 
-products.get("/:id", authenticated, async (c) => {
+productRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const product = await db.item.findUnique({
@@ -44,7 +44,7 @@ products.get("/:id", authenticated, async (c) => {
   return c.json<ProductDTO>(toProductDTO(product));
 });
 
-products.put(
+productRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateProductDTO),
@@ -65,7 +65,7 @@ products.put(
   },
 );
 
-products.post("/:id/archive", authenticated, async (c) => {
+productRoutes.post("/:id/archive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const product = await db.item.update({
@@ -80,7 +80,7 @@ products.post("/:id/archive", authenticated, async (c) => {
   return c.json<ProductDTO>(toProductDTO(product));
 });
 
-products.post("/:id/unarchive", authenticated, async (c) => {
+productRoutes.post("/:id/unarchive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const product = await db.item.update({
@@ -95,13 +95,13 @@ products.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<ProductDTO>(toProductDTO(product));
 });
 
-products.get("/all", authenticated, async (c) => {
+productRoutes.get("/all", authenticated, async (c) => {
   const products = await db.item.findMany();
 
   return c.json<ProductDTO[]>(products.map(toProductDTO));
 });
 
-products.get("/archived", authenticated, async (c) => {
+productRoutes.get("/archived", authenticated, async (c) => {
   const products = await db.item.findMany({
     where: { archived: true },
   });
@@ -109,4 +109,4 @@ products.get("/archived", authenticated, async (c) => {
   return c.json<ProductDTO[]>(products.map(toProductDTO));
 });
 
-export default products;
+export default productRoutes;

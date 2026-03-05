@@ -6,9 +6,9 @@ import { zValidator } from "@hono/zod-validator";
 import { verifyPassword } from "../lib/password";
 import { sign } from "hono/jwt";
 
-const auth = new Hono();
+const authRoutes = new Hono();
 
-auth.post("/", zValidator("json", LoginDTO), async (c) => {
+authRoutes.post("/", zValidator("json", LoginDTO), async (c) => {
   const data = c.req.valid("json");
   const { username, password } = data;
 
@@ -42,10 +42,10 @@ auth.post("/", zValidator("json", LoginDTO), async (c) => {
   return c.json<AuthUserDTO>({ ...authUser, token });
 });
 
-auth.get("/", authenticated, async (c) => {
+authRoutes.get("/", authenticated, async (c) => {
   const authUser = c.get("authUser");
 
   return c.json<AuthUserDTO>(authUser);
 });
 
-export default auth;
+export default authRoutes;

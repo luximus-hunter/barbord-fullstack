@@ -5,9 +5,9 @@ import { toUserDTO } from "../mappers/user.mapper";
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
-const users = new Hono();
+const userRoutes = new Hono();
 
-users.get("/", authenticated, async (c) => {
+userRoutes.get("/", authenticated, async (c) => {
   const users = await db.user.findMany({
     where: { archived: false },
   });
@@ -15,7 +15,7 @@ users.get("/", authenticated, async (c) => {
   return c.json<UserDTO[]>(users.map(toUserDTO));
 });
 
-users.post("/", authenticated, zValidator("json", CreateUserDTO), async (c) => {
+userRoutes.post("/", authenticated, zValidator("json", CreateUserDTO), async (c) => {
   const data = c.req.valid("json");
 
   const user = await db.user.create({
@@ -25,7 +25,7 @@ users.post("/", authenticated, zValidator("json", CreateUserDTO), async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-users.get("/:id", authenticated, async (c) => {
+userRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const user = await db.user.findUnique({
@@ -39,7 +39,7 @@ users.get("/:id", authenticated, async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-users.put(
+userRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateUserDTO),
@@ -60,7 +60,7 @@ users.put(
   },
 );
 
-users.post("/:id/archive", authenticated, async (c) => {
+userRoutes.post("/:id/archive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const user = await db.user.update({
@@ -75,7 +75,7 @@ users.post("/:id/archive", authenticated, async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-users.post("/:id/unarchive", authenticated, async (c) => {
+userRoutes.post("/:id/unarchive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const user = await db.user.update({
@@ -90,13 +90,13 @@ users.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-users.get("/all", authenticated, async (c) => {
+userRoutes.get("/all", authenticated, async (c) => {
   const users = await db.user.findMany();
 
   return c.json<UserDTO[]>(users.map(toUserDTO));
 });
 
-users.get("/archived", authenticated, async (c) => {
+userRoutes.get("/archived", authenticated, async (c) => {
   const users = await db.user.findMany({
     where: { archived: true },
   });
@@ -104,4 +104,4 @@ users.get("/archived", authenticated, async (c) => {
   return c.json<UserDTO[]>(users.map(toUserDTO));
 });
 
-export default users;
+export default userRoutes;

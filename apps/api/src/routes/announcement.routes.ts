@@ -8,15 +8,15 @@ import {
 } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
-const announcements = new Hono();
+const announcementRoutes = new Hono();
 
-announcements.get("/", authenticated, async (c) => {
+announcementRoutes.get("/", authenticated, async (c) => {
   const announcements = await db.announcement.findMany();
 
   return c.json<AnnouncementDTO[]>(announcements);
 });
 
-announcements.post(
+announcementRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateAnnouncementDTO),
@@ -31,7 +31,7 @@ announcements.post(
   },
 );
 
-announcements.get("/:id", authenticated, async (c) => {
+announcementRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const announcement = await db.announcement.findUnique({
@@ -45,7 +45,7 @@ announcements.get("/:id", authenticated, async (c) => {
   return c.json<AnnouncementDTO>(announcement);
 });
 
-announcements.put(
+announcementRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateAnnouncementDTO),
@@ -66,7 +66,7 @@ announcements.put(
   },
 );
 
-announcements.delete("/:id", authenticated, async (c) => {
+announcementRoutes.delete("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const announcement = await db.announcement.delete({
@@ -80,4 +80,4 @@ announcements.delete("/:id", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default announcements;
+export default announcementRoutes;

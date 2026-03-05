@@ -11,9 +11,9 @@ async function getSettings() {
   return toSettingsDTO(settingsEntries);
 }
 
-const topups = new Hono();
+const topupRoutes = new Hono();
 
-topups.post(
+topupRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateTopupDTO),
@@ -33,7 +33,7 @@ topups.post(
   },
 );
 
-topups.get("/user/:userId", authenticated, async (c) => {
+topupRoutes.get("/user/:userId", authenticated, async (c) => {
   const userId = parseInt(c.req.param("userId"), 10);
 
   const topups = await db.topup.findMany({
@@ -44,7 +44,7 @@ topups.get("/user/:userId", authenticated, async (c) => {
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topups.get("/page/:page", authenticated, async (c) => {
+topupRoutes.get("/page/:page", authenticated, async (c) => {
   const page = parseInt(c.req.param("page"), 10);
 
   const settings = await getSettings();
@@ -59,7 +59,7 @@ topups.get("/page/:page", authenticated, async (c) => {
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topups.get("/page/:page/user/:userId", authenticated, async (c) => {
+topupRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
   const page = parseInt(c.req.param("page"), 10);
   const userId = parseInt(c.req.param("userId"), 10);
 
@@ -76,7 +76,7 @@ topups.get("/page/:page/user/:userId", authenticated, async (c) => {
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topups.post("/:id/undo", authenticated, async (c) => {
+topupRoutes.post("/:id/undo", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const topup = await db.topup.findUnique({
@@ -99,7 +99,7 @@ topups.post("/:id/undo", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-topups.post("/:id/approve", authenticated, async (c) => {
+topupRoutes.post("/:id/approve", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const topup = await db.topup.findUnique({
@@ -118,4 +118,4 @@ topups.post("/:id/approve", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default topups;
+export default topupRoutes;

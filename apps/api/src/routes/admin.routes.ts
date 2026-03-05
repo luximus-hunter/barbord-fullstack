@@ -5,9 +5,9 @@ import { toAdminDTO } from "../mappers/admin.mapper";
 import { CreateAdminDTO, UpdateAdminDTO, AdminDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
-const admins = new Hono();
+const adminRoutes = new Hono();
 
-admins.get("/", authenticated, async (c) => {
+adminRoutes.get("/", authenticated, async (c) => {
   const admins = await db.admin.findMany({
     where: { archived: false },
   });
@@ -15,7 +15,7 @@ admins.get("/", authenticated, async (c) => {
   return c.json<AdminDTO[]>(admins.map(toAdminDTO));
 });
 
-admins.post("/", authenticated, zValidator("json", CreateAdminDTO), async (c) => {
+adminRoutes.post("/", authenticated, zValidator("json", CreateAdminDTO), async (c) => {
   const data = c.req.valid("json");
 
   const admin = await db.admin.create({
@@ -25,7 +25,7 @@ admins.post("/", authenticated, zValidator("json", CreateAdminDTO), async (c) =>
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-admins.get("/:id", authenticated, async (c) => {
+adminRoutes.get("/:id", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const admin = await db.admin.findUnique({
@@ -39,7 +39,7 @@ admins.get("/:id", authenticated, async (c) => {
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-admins.put(
+adminRoutes.put(
   "/:id",
   authenticated,
   zValidator("json", UpdateAdminDTO),
@@ -60,7 +60,7 @@ admins.put(
   },
 );
 
-admins.post("/:id/archive", authenticated, async (c) => {
+adminRoutes.post("/:id/archive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const admin = await db.admin.update({
@@ -75,7 +75,7 @@ admins.post("/:id/archive", authenticated, async (c) => {
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-admins.post("/:id/unarchive", authenticated, async (c) => {
+adminRoutes.post("/:id/unarchive", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const admin = await db.admin.update({
@@ -90,13 +90,13 @@ admins.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-admins.get("/all", authenticated, async (c) => {
+adminRoutes.get("/all", authenticated, async (c) => {
   const admins = await db.admin.findMany();
 
   return c.json<AdminDTO[]>(admins.map(toAdminDTO));
 });
 
-admins.get("/archived", authenticated, async (c) => {
+adminRoutes.get("/archived", authenticated, async (c) => {
   const admins = await db.admin.findMany({
     where: { archived: true },
   });
@@ -104,4 +104,4 @@ admins.get("/archived", authenticated, async (c) => {
   return c.json<AdminDTO[]>(admins.map(toAdminDTO));
 });
 
-export default admins;
+export default adminRoutes;

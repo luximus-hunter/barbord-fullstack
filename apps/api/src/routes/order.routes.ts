@@ -12,9 +12,9 @@ async function getSettings() {
   return toSettingsDTO(settingsEntries);
 }
 
-const orders = new Hono();
+const orderRoutes = new Hono();
 
-orders.post(
+orderRoutes.post(
   "/",
   authenticated,
   zValidator("json", CreateOrderDTO),
@@ -52,7 +52,7 @@ orders.post(
 );
 
 // This route is unprotected so the user can see their history
-orders.get("/user/:userId", async (c) => {
+orderRoutes.get("/user/:userId", async (c) => {
   const userId = parseInt(c.req.param("userId"), 10);
 
   const orders = await db.order.findMany({
@@ -63,7 +63,7 @@ orders.get("/user/:userId", async (c) => {
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orders.get("/page/:page", authenticated, async (c) => {
+orderRoutes.get("/page/:page", authenticated, async (c) => {
   const page = parseInt(c.req.param("page"), 10);
 
   const settings = await getSettings();
@@ -78,7 +78,7 @@ orders.get("/page/:page", authenticated, async (c) => {
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orders.get("/page/:page/user/:userId", authenticated, async (c) => {
+orderRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
   const page = parseInt(c.req.param("page"), 10);
   const userId = parseInt(c.req.param("userId"), 10);
 
@@ -95,7 +95,7 @@ orders.get("/page/:page/user/:userId", authenticated, async (c) => {
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orders.post("/:id/undo", authenticated, async (c) => {
+orderRoutes.post("/:id/undo", authenticated, async (c) => {
   const id = parseInt(c.req.param("id"), 10);
 
   const order = await db.order.findUnique({
@@ -122,4 +122,4 @@ orders.post("/:id/undo", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-export default orders;
+export default orderRoutes;

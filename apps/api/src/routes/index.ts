@@ -1,31 +1,31 @@
 import { Hono } from "hono";
-import users from "./user.routes";
-import products from "./product.routes";
-import admins from "./admin.routes";
-import auth from "./auth.routes";
-import announcements from "./announcement.routes";
-import settings from "./settings.route";
-import automaticTopups from "./automatic-topup.routes";
-import productImages from "./product-images.routes";
-import productCategories from "./product-categories.route";
-import topups from "./topup.routes";
-import orders from "./order.routes";
+import userRoutes from "./user.routes";
+import productRoutes from "./product.routes";
+import adminRoutes from "./admin.routes";
+import authRoutes from "./auth.routes";
+import announcementRoutes from "./announcement.routes";
+import settingsRoutes from "./settings.route";
+import automaticTopupRoutes from "./automatic-topup.routes";
+import productImageRoutes from "./product-images.routes";
+import productCategoryRoutes from "./product-categories.route";
+import topupRoutes from "./topup.routes";
+import orderRoutes from "./order.routes";
 
 const routes = new Hono();
 
-routes.route("/auth", auth);
-routes.route("/settings", settings);
+routes.route("/auth", authRoutes);
+routes.route("/settings", settingsRoutes);
 
-routes.route("/users", users);
-routes.route("/admins", admins);
-routes.route("/announcements", announcements);
-routes.route("/orders", orders);
-routes.route("/topups", topups);
-routes.route("/automatic-topup", automaticTopups);
-routes.route("/products", products);
-routes.route("/product-images", productImages);
-routes.route("/product-categories", productCategories);
-// routes.route("/product-stock-history", productStockHistory);
-// routes.route("/product-order-history", productOrderHistory);
+routes.route("/users", userRoutes);
+routes.route("/admins", adminRoutes);
+routes.route("/announcements", announcementRoutes);
+routes.route("/orders", orderRoutes);
+routes.route("/topups", topupRoutes);
+routes.route("/automatic-topup", automaticTopupRoutes);
+routes.route("/products", productRoutes);
+routes.route("/product-images", productImageRoutes);
+routes.route("/product-categories", productCategoryRoutes);
+// routes.route("/product-stock-history", productStockHistoryRoutes);
+// routes.route("/product-order-history", productOrderHistoryRoutes);
 
 export default routes;
