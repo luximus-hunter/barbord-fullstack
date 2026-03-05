@@ -5,7 +5,7 @@ export const authGateway = (baseUrl: string) => ({
   login: async (input: LoginDTO) => {
     const result = await fetchWithSchema({
       method: "POST",
-      url: baseUrl + "/auth/login",
+      url: baseUrl + "/auth",
       body: input,
       bodySchema: LoginDTO,
       responseSchema: AuthUserDTO,
@@ -24,7 +24,7 @@ export const authGateway = (baseUrl: string) => ({
     fetchWithSchema({
       useToken: true,
       method: "GET",
-      url: baseUrl + "/auth/me",
+      url: baseUrl + "/auth",
       responseSchema: AuthUserDTO,
     }),
 });
