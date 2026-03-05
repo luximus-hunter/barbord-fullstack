@@ -1,0 +1,84 @@
+import { Hono } from "hono";
+import { authenticated } from "../middleware/authenticated";
+import { db } from "@repo/db";
+import {
+  AutomaticTopupDTO,
+  CreateAutomaticTopupDTO,
+  UpdateAutomaticTopupDTO,
+} from "@repo/contract";
+import { zValidator } from "@hono/zod-validator";
+import { toAutomaticTopupDTO } from "../mappers/automatic-topup.mapper";
+
+const automaticTopups = new Hono();
+
+automaticTopups.get("/", authenticated, async (c) => {
+  const automaticTopups = await db.automaticTopup.findMany();
+
+  return c.json<AutomaticTopupDTO[]>(automaticTopups.map(toAutomaticTopupDTO));
+});
+
+automaticTopups.post(
+  "/",
+  authenticated,
+  zValidator("json", CreateAutomaticTopupDTO),
+  async (c) => {
+    const data = c.req.valid("json");
+
+    const automaticTopup = await db.automaticTopup.create({
+      data,
+    });
+
+    return c.json<AutomaticTopupDTO>(toAutomaticTopupDTO(automaticTopup));
+  },
+);
+
+automaticTopups.get("/:id", authenticated, async (c) => {
+  const id = parseInt(c.req.param("id"), 10);
+
+  const automaticTopup = await db.automaticTopup.findUnique({
+    where: { id },
+  });
+
+  if (!automaticTopup) {
+    return c.json({ error: `Automatic top-up with id ${id} not found` }, 404);
+  }
+
+  return c.json<AutomaticTopupDTO>(toAutomaticTopupDTO(automaticTopup));
+});
+
+automaticTopups.put(
+  "/:id",
+  authenticated,
+  zValidator("json", UpdateAutomaticTopupDTO),
+  async (c) => {
+    const id = parseInt(c.req.param("id"), 10);
+    const data = c.req.valid("json");
+
+    const automaticTopup = await db.automaticTopup.update({
+      where: { id },
+      data,
+    });
+
+    if (!automaticTopup) {
+      return c.json({ error: `Automatic top-up with id ${id} not found` }, 404);
+    }
+
+    return c.json<AutomaticTopupDTO>(toAutomaticTopupDTO(automaticTopup));
+  },
+);
+
+automaticTopups.delete("/:id", authenticated, async (c) => {
+  const id = parseInt(c.req.param("id"), 10);
+
+  const automaticTopup = await db.automaticTopup.delete({
+    where: { id },
+  });
+
+  if (!automaticTopup) {
+    return c.json({ error: `Automatic top-up with id ${id} not found` }, 404);
+  }
+
+  return c.json({ success: true }, 200);
+});
+
+export default automaticTopups;

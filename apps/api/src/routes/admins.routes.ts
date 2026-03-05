@@ -1,0 +1,107 @@
+import { Hono } from "hono";
+import { authenticated } from "../middleware/authenticated";
+import { db } from "@repo/db";
+import { toAdminDTO } from "../mappers/admin.mapper";
+import { CreateAdminDTO, UpdateAdminDTO, AdminDTO } from "@repo/contract";
+import { zValidator } from "@hono/zod-validator";
+
+const admins = new Hono();
+
+admins.get("/", authenticated, async (c) => {
+  const admins = await db.admin.findMany({
+    where: { archived: false },
+  });
+
+  return c.json<AdminDTO[]>(admins.map(toAdminDTO));
+});
+
+admins.post("/", authenticated, zValidator("json", CreateAdminDTO), async (c) => {
+  const data = c.req.valid("json");
+
+  const admin = await db.admin.create({
+    data,
+  });
+
+  return c.json<AdminDTO>(toAdminDTO(admin));
+});
+
+admins.get("/:id", authenticated, async (c) => {
+  const id = parseInt(c.req.param("id"), 10);
+
+  const admin = await db.admin.findUnique({
+    where: { id },
+  });
+
+  if (!admin) {
+    return c.json({ error: `Admin with id ${id} not found` }, 404);
+  }
+
+  return c.json<AdminDTO>(toAdminDTO(admin));
+});
+
+admins.put(
+  "/:id",
+  authenticated,
+  zValidator("json", UpdateAdminDTO),
+  async (c) => {
+    const id = parseInt(c.req.param("id"), 10);
+    const data = c.req.valid("json");
+
+    const admin = await db.admin.update({
+      where: { id },
+      data,
+    });
+
+    if (!admin) {
+      return c.json({ error: `Admin with id ${id} not found` }, 404);
+    }
+
+    return c.json<AdminDTO>(toAdminDTO(admin));
+  },
+);
+
+admins.post("/:id/archive", authenticated, async (c) => {
+  const id = parseInt(c.req.param("id"), 10);
+
+  const admin = await db.admin.update({
+    where: { id },
+    data: { archived: true },
+  });
+
+  if (!admin) {
+    return c.json({ error: `Admin with id ${id} not found` }, 404);
+  }
+
+  return c.json<AdminDTO>(toAdminDTO(admin));
+});
+
+admins.post("/:id/unarchive", authenticated, async (c) => {
+  const id = parseInt(c.req.param("id"), 10);
+
+  const admin = await db.admin.update({
+    where: { id },
+    data: { archived: false },
+  });
+
+  if (!admin) {
+    return c.json({ error: `Admin with id ${id} not found` }, 404);
+  }
+
+  return c.json<AdminDTO>(toAdminDTO(admin));
+});
+
+admins.get("/all", authenticated, async (c) => {
+  const admins = await db.admin.findMany();
+
+  return c.json<AdminDTO[]>(admins.map(toAdminDTO));
+});
+
+admins.get("/archived", authenticated, async (c) => {
+  const admins = await db.admin.findMany({
+    where: { archived: true },
+  });
+
+  return c.json<AdminDTO[]>(admins.map(toAdminDTO));
+});
+
+export default admins;
