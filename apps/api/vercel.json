@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "entrypoint.ts"
+      "dest": "/dist/server.mjs"
     }
   ]
 }

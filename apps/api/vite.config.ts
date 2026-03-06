@@ -2,17 +2,20 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   build: {
-    ssr: "src/server.ts",
+    ssr: "entrypoint.ts",
     target: "node20",
     outDir: "dist",
     // minify: "oxc",
     rollupOptions: {
-      input: "src/server.ts",
+      input: "entrypoint.ts",
       external: [
         "@prisma/client",
         /^@prisma\/.*/,
         /^node:.*/,
       ],
+      output: {
+        entryFileNames: "server.mjs",
+      },
     },
   },
 });
