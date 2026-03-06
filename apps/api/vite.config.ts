@@ -10,19 +10,5 @@ export default defineConfig({
       formats: ["es"],
       fileName: "dev",
     },
-    rollupOptions: {
-      external: [
-        /^node:.*/,
-        "@hono/node-server",
-        "hono",
-        "@hono/zod-validator",
-        "@repo/contract",
-        "@repo/db",
-        "@vercel/blob",
-        "bcrypt",
-        "sharp",
-        "zod",
-      ],
-    },
   },
 });
