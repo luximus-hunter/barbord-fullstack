@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { AdminDTO, CreateAdminDTO } from "./admin";
+import { AdminDTO, CreateAdminDTO } from "./admin.js";
 
 export const LoginDTO = CreateAdminDTO.pick({
   username: true,

@@ -26,6 +26,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/dev-server.ts",
+    "prebuild": "pnpm --filter @repo/contract run build",
     "build": "vite build",
     "start": "node dist/index.mjs"
   }

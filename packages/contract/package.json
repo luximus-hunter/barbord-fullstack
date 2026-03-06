@@ -2,9 +2,23 @@
   "name": "@repo/contract",
   "type": "module",
   "version": "1.0.0",
-  "exports": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json"
+  },
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
     "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "typescript": "^5.9.2"
   }
 }

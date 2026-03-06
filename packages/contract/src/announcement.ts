@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { ColorEnum } from "./enums";
+import { ColorEnum } from "./enums.js";
 
 export const AnnouncementDTO = z.object({
   id: z.number(),

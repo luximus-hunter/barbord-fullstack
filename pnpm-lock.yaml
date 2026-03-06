@@ -113,6 +113,13 @@ importers:
       zod:
         specifier: ^4.3.6
         version: 4.3.6
+    devDependencies:
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.19.13
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.3
 
   packages/db:
     dependencies:
@@ -2631,7 +2638,7 @@ snapshots:
 
   '@types/bcrypt@6.0.0':
     dependencies:
-      '@types/node': 20.19.35
+      '@types/node': 24.11.0
 
   '@types/geojson@7946.0.16': {}
 
