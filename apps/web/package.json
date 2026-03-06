@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "pnpm --filter @repo/contract --filter @repo/gateway run build",
     "build": "tsc -b && vite build",
     "start": "pnpm build && vite preview"
   },
