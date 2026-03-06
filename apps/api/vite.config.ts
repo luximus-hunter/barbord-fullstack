@@ -6,9 +6,9 @@ export default defineConfig({
     outDir: "dist",
     minify: "oxc",
     lib: {
-      entry: "src/dev.ts",
+      entry: "src/index.ts",
       formats: ["es"],
-      fileName: "dev",
+      fileName: "index.mjs",
     },
   },
 });
