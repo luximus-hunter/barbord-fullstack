@@ -2,12 +2,20 @@
   "name": "@repo/db",
   "type": "module",
   "version": "1.0.0",
-  "exports": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./index.ts",
   "packageManager": "pnpm@10.29.3",
   "prisma": {
     "schema": "prisma/schema.prisma"
   },
   "scripts": {
+    "build": "esbuild index.ts --bundle --platform=node --format=esm --target=node20 --outfile=dist/index.js --external:@prisma/client --external:@prisma/adapter-mariadb --external:dotenv",
     "postinstall": "prisma generate",
     "generate": "prisma generate",
     "push": "prisma db push"
@@ -19,6 +27,7 @@
     "prisma": "^7.4.0"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3"
+    "@types/node": "^22.15.3",
+    "esbuild": "^0.25.11"
   }
 }
