@@ -4,7 +4,7 @@ export default defineConfig({
   build: {
     ssr: "entrypoint.ts",
     target: "node20",
-    outDir: "dist",
+    outDir: "dist/api",
     // minify: "oxc",
     rollupOptions: {
       input: "entrypoint.ts",
@@ -14,7 +14,8 @@ export default defineConfig({
         /^node:.*/,
       ],
       output: {
-        entryFileNames: "server.mjs",
+        entryFileNames: "index.mjs",
+        format: "esm",
       },
     },
   },
