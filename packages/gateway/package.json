@@ -2,13 +2,24 @@
   "name": "@repo/gateway",
   "type": "module",
   "version": "1.0.0",
-  "exports": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsdown --config ../../tsdown.config.ts"
+  },
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
     "@repo/contract": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3"
+    "@types/node": "^22.15.3",
+    "tsdown": "^0.15.6"
   }
 }

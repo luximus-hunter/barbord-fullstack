@@ -11,7 +11,7 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json"
+    "build": "tsdown --config ../../tsdown.config.ts"
   },
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "tsdown": "^0.15.6",
     "typescript": "^5.9.2"
   }
 }
