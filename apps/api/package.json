@@ -25,8 +25,8 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "tsx watch src/dev.ts",
+    "dev": "tsx watch src/index.ts",
     "build": "vite build",
-    "start": "node dist/dev.mjs"
+    "start": "node dist/index.mjs"
   }
 }
