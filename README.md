@@ -4,7 +4,7 @@
 
 **Apps**
 
-- [ ] `@barbord/client`: A website frontend built with `TBD`
+- [ ] `@barbord/web`: A website frontend built with `TBD`
 - [ ] `@barbord/desktop`: A desktop application built with Tauri
 - [x] `@barbord/api`: A backend api server built with Hono
 
@@ -23,7 +23,7 @@
 ```mermaid
 flowchart TB
   subgraph "Apps"
-    WEB["@barbord/client (Website)"]
+    WEB["@barbord/web (Website)"]
     DESKTOP["@barbord/desktop (Desktop)"]
     GATEWAY["@barbord/gateway (API Library)"]
   end
@@ -83,6 +83,8 @@ To work on a specific app or package, you can run the corresponding command:
 
 ### Build order
 
+Running `pnpm build` will build all apps and packages with turborepo. Everything is configured to run in the following order:
+
 1. Packages
    - `@barbord/contract`
    - `@barbord/db`
@@ -92,3 +94,12 @@ To work on a specific app or package, you can run the corresponding command:
    - `@barbord/web`
 3. Desktop
    - `@barbord/desktop`
+
+### Resetting the repository
+
+You can reset the repo with `./reset.ps1` on Windows. This removes:
+
+- `node_modules` for all
+- `.turbo` for all
+- `dist` for all
+- `target` for @barbord/desktop
