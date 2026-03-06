@@ -22,7 +22,8 @@
     "vite": "^8.0.0-beta.14"
   },
   "engines": {
-    "node": ">=20"
+    "node": "=22",
+    "pnpm": "=10"
   },
   "scripts": {
     "dev": "tsx watch src/dev-server.ts",
