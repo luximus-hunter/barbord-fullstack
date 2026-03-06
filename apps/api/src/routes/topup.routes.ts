@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
-import { CreateTopupDTO, TopupDTO } from "@repo/contract";
-import { db } from "@repo/db";
+import { CreateTopupDTO, TopupDTO } from "@barbord/contract";
+import { db } from "@barbord/db";
 import { Hono } from "hono";
 import { toTopupDTO } from "../mappers/topup.mapper.js";
 import { authenticated } from "../middleware/authenticated.js";

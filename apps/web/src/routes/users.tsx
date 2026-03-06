@@ -1,4 +1,4 @@
-import { Gateway } from "@repo/gateway";
+import { Gateway } from "@barbord/gateway";
 import { useQuery } from "@tanstack/solid-query";
 import { createFileRoute } from "@tanstack/solid-router";
 

@@ -1,7 +1,7 @@
-import { SettingsDTO } from "@repo/contract";
+import { SettingsDTO } from "@barbord/contract";
 import { Hono } from "hono";
 import { toSettingsDTO, toSettingsV2Entries } from "../mappers/settings.mapper.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import { zValidator } from "@hono/zod-validator";
 
 const settingsRoutes = new Hono();

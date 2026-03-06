@@ -1,5 +1,5 @@
 {
-  "name": "@repo/gateway",
+  "name": "@barbord/gateway",
   "type": "module",
   "version": "1.0.0",
   "exports": {
@@ -15,7 +15,7 @@
   },
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
-    "@repo/contract": "workspace:*",
+    "@barbord/contract": "workspace:*",
     "zod": "^4.3.6"
   },
   "devDependencies": {

@@ -1,4 +1,4 @@
-import { AuthUserDTO } from "@repo/contract";
+import { AuthUserDTO } from "@barbord/contract";
 import { createMiddleware } from "hono/factory";
 import { verify } from "hono/jwt";
 

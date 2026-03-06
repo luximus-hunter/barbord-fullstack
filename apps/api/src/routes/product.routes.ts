@@ -1,13 +1,13 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import { toProductDTO } from "../mappers/product.mapper.js";
 import {
   CreateProductDTO,
   UpdateProductDTO,
   ProductDTO,
   ProductStockDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
 

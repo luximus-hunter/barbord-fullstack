@@ -10,7 +10,7 @@ export default defineConfig({
       fileName: "index.mjs",
     },
     rollupOptions: {
-      external: ["@repo/contract", "@repo/db"],
+      external: ["@barbord/contract", "@barbord/db"],
     },
   },
 });

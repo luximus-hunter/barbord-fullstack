@@ -1,4 +1,4 @@
-import { SettingsDTO } from "@repo/contract";
+import { SettingsDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const settingsGateway = (baseUrl: string) => ({

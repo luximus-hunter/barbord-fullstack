@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import {
   AutomaticTopupDTO,
   CreateAutomaticTopupDTO,
   UpdateAutomaticTopupDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 import { toAutomaticTopupDTO } from "../mappers/automatic-topup.mapper.js";
 

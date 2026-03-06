@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import { toUserDTO } from "../mappers/user.mapper.js";
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@repo/contract";
+import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 
 const userRoutes = new Hono();

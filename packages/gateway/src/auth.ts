@@ -1,4 +1,4 @@
-import { AuthUserDTO, LoginDTO } from "@repo/contract";
+import { AuthUserDTO, LoginDTO } from "@barbord/contract";
 import { fetchWithSchema, lsCachePrefix } from "./lib/fetchWithSchema";
 
 export const authGateway = (baseUrl: string) => ({

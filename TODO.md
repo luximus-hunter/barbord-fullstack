@@ -1,6 +1,6 @@
 # Barbord Monorepo - TODO List
 
-## @repo/api
+## @barbord/api
 
 - [ ] CORS configuration
 - [x] Data routes
@@ -19,24 +19,24 @@
   - [x] Topup
   - [x] User
 
-## @repo/web
+## @barbord/web
 
 - [ ] Fill in TODO list
 
-## @repo/desktop
+## @barbord/desktop
 
 - [ ] Fill in TODO list
 
-## @repo/db
+## @barbord/db
 
 - [x] Database schema design
 - [x] Prisma setup
 
-## @repo/contract
+## @barbord/contract
 
 - [x] Define data schemas
 
-## @repo/gateway
+## @barbord/gateway
 
 - [x] Define data interactions
 - [x] Create fetchWithSchema utility

@@ -1,4 +1,4 @@
-import { ProductImageDTO, CreateProductImageDTO } from "@repo/contract";
+import { ProductImageDTO, CreateProductImageDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const productImagesGateway = (baseUrl: string) => ({

@@ -1,4 +1,4 @@
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
 import {
@@ -8,7 +8,7 @@ import {
   ProductStockHistoryRowDTO,
   UpdateProductStockHistoryDTO,
   UpdateProductStockHistoryRowDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
 import { zValidator } from "@hono/zod-validator";
 

@@ -4,7 +4,7 @@ import {
   createRootRoute,
   useNavigate,
 } from "@tanstack/solid-router";
-import { Gateway } from "@repo/gateway";
+import { Gateway } from "@barbord/gateway";
 
 export const Route = createRootRoute({
   component: RootComponent,

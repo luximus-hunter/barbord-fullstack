@@ -1,5 +1,5 @@
 {
-  "name": "@repo/web",
+  "name": "@barbord/web",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -9,8 +9,8 @@
     "start": "pnpm build && vite preview"
   },
   "dependencies": {
-    "@repo/contract": "workspace:*",
-    "@repo/gateway": "workspace:*",
+    "@barbord/contract": "workspace:*",
+    "@barbord/gateway": "workspace:*",
     "@tanstack/solid-query": "^5.90.23",
     "@tanstack/solid-router": "^1.160.0",
     "solid-js": "^1.9.10",

@@ -1,5 +1,5 @@
-import { User } from "@repo/db";
-import { UserDTO } from "@repo/contract";
+import { User } from "@barbord/db";
+import { UserDTO } from "@barbord/contract";
 
 export function toUserDTO(user: User): UserDTO {
   return UserDTO.parse({

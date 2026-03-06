@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import {
   CreateAnnouncementDTO,
   UpdateAnnouncementDTO,
   AnnouncementDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 
 const announcementRoutes = new Hono();

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/solid-router";
 import { useQuery } from "@tanstack/solid-query";
-import { Gateway } from "@repo/gateway";
+import { Gateway } from "@barbord/gateway";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,

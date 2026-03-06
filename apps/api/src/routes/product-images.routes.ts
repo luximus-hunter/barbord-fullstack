@@ -1,9 +1,9 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { CreateProductImageDTO, ProductImageDTO } from "@repo/contract";
+import { CreateProductImageDTO, ProductImageDTO } from "@barbord/contract";
 import { del, list, put } from "@vercel/blob";
 import sharp from "sharp";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 
 const MAX_PREFERRED_WIDTH = 400;
 const MAX_PREFERRED_HEIGHT = 400;

@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
-import { LoginDTO, AuthUserDTO } from "@repo/contract";
+import { db } from "@barbord/db";
+import { LoginDTO, AuthUserDTO } from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 import { verifyPassword } from "../lib/password.js";
 import { sign } from "hono/jwt";

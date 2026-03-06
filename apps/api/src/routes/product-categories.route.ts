@@ -1,11 +1,11 @@
 import { Hono } from "hono";
 import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@repo/db";
+import { db } from "@barbord/db";
 import {
   UpdateProductCategoryDTO,
   ProductCategoryDTO,
   CreateProductCategoryDTO,
-} from "@repo/contract";
+} from "@barbord/contract";
 import { zValidator } from "@hono/zod-validator";
 
 const productCategoryRoutes = new Hono();

@@ -30,8 +30,8 @@
         "GITHUB_REPO_TOKEN"
       ]
     },
-    "@repo/desktop#build": {
-      "dependsOn": ["@repo/web#build"],
+    "@barbord/desktop#build": {
+      "dependsOn": ["@barbord/web#build"],
       "outputs": ["apps/desktop/src-tauri/target/**/*"]
     },
     "start": {

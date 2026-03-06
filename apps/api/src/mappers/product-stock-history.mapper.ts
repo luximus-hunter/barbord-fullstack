@@ -1,5 +1,5 @@
-import { ProductStockHistoryDTO } from "@repo/contract";
-import { ItemStockHistory } from "@repo/db";
+import { ProductStockHistoryDTO } from "@barbord/contract";
+import { ItemStockHistory } from "@barbord/db";
 
 export function toProductStockHistoryDTO(
   history: ItemStockHistory,

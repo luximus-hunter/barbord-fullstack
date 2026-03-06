@@ -1,12 +1,12 @@
 {
-  "name": "@repo/api",
+  "name": "@barbord/api",
   "type": "module",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@hono/zod-validator": "^0.7.6",
-    "@repo/contract": "workspace:*",
-    "@repo/db": "workspace:*",
+    "@barbord/contract": "workspace:*",
+    "@barbord/db": "workspace:*",
     "@vercel/blob": "^2.3.0",
     "bcrypt": "^6.0.0",
     "hono": "^4.4.0",

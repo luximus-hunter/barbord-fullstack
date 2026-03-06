@@ -1,6 +1,6 @@
 import { zValidator } from "@hono/zod-validator";
-import { CreateOrderDTO, OrderDTO } from "@repo/contract";
-import { db } from "@repo/db";
+import { CreateOrderDTO, OrderDTO } from "@barbord/contract";
+import { db } from "@barbord/db";
 import { Hono } from "hono";
 import { toOrderDTO } from "../mappers/order.mapper.js";
 import { authenticated } from "../middleware/authenticated.js";

@@ -1,4 +1,4 @@
-import { ShopDTO } from "@repo/contract";
+import { ShopDTO } from "@barbord/contract";
 import { fetchWithSchema } from "./lib/fetchWithSchema";
 
 export const shopGateway = (baseUrl: string) => ({

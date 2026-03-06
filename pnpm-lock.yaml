@@ -20,10 +20,10 @@ importers:
       '@hono/zod-validator':
         specifier: ^0.7.6
         version: 0.7.6(hono@4.12.5)(zod@4.3.6)
-      '@repo/contract':
+      '@barbord/contract':
         specifier: workspace:*
         version: link:../../packages/contract
-      '@repo/db':
+      '@barbord/db':
         specifier: workspace:*
         version: link:../../packages/db
       '@vercel/blob':
@@ -76,10 +76,10 @@ importers:
 
   apps/web:
     dependencies:
-      '@repo/contract':
+      '@barbord/contract':
         specifier: workspace:*
         version: link:../../packages/contract
-      '@repo/gateway':
+      '@barbord/gateway':
         specifier: workspace:*
         version: link:../../packages/gateway
       '@tanstack/solid-query':
@@ -151,7 +151,7 @@ importers:
 
   packages/gateway:
     dependencies:
-      '@repo/contract':
+      '@barbord/contract':
         specifier: workspace:*
         version: link:../contract
       zod:

@@ -18,7 +18,7 @@ try {
   packageName = "";
 }
 
-const isDbPackage = packageName === "@repo/db";
+const isDbPackage = packageName === "@barbord/db";
 
 export default defineConfig({
   entry: ["index.ts"],

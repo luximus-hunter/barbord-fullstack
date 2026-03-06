@@ -1,11 +1,11 @@
-import { LoginDTO } from "@repo/contract";
+import { LoginDTO } from "@barbord/contract";
 import { useZodForm } from "../lib/useZodForm";
 import { router } from "../router";
 import { createFileRoute } from "@tanstack/solid-router";
 import { FormField } from "../components/ui/form-field";
 import { useQuery } from "@tanstack/solid-query";
 import { Show } from "solid-js";
-import { Gateway } from "@repo/gateway";
+import { Gateway } from "@barbord/gateway";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
