@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
-import { toUserDTO } from "../mappers/user.mapper";
+import { toUserDTO } from "../mappers/user.mapper.js";
 import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
@@ -105,3 +105,4 @@ userRoutes.get("/archived", authenticated, async (c) => {
 });
 
 export default userRoutes;
+

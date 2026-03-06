@@ -2,10 +2,10 @@ import { zValidator } from "@hono/zod-validator";
 import { CreateOrderDTO, OrderDTO } from "@repo/contract";
 import { db } from "@repo/db";
 import { Hono } from "hono";
-import { toOrderDTO } from "../mappers/order.mapper";
-import { authenticated } from "../middleware/authenticated";
-import { toSettingsDTO } from "../mappers/settings.mapper";
-import { toUserDTO } from "../mappers/user.mapper";
+import { toOrderDTO } from "../mappers/order.mapper.js";
+import { authenticated } from "../middleware/authenticated.js";
+import { toSettingsDTO } from "../mappers/settings.mapper.js";
+import { toUserDTO } from "../mappers/user.mapper.js";
 
 async function getSettings() {
   const settingsEntries = await db.settingsV2.findMany();
@@ -123,3 +123,4 @@ orderRoutes.post("/:id/undo", authenticated, async (c) => {
 });
 
 export default orderRoutes;
+

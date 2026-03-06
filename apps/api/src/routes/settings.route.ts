@@ -1,6 +1,6 @@
 import { SettingsDTO } from "@repo/contract";
 import { Hono } from "hono";
-import { toSettingsDTO, toSettingsV2Entries } from "../mappers/settings.mapper";
+import { toSettingsDTO, toSettingsV2Entries } from "../mappers/settings.mapper.js";
 import { db } from "@repo/db";
 import { zValidator } from "@hono/zod-validator";
 
@@ -30,3 +30,4 @@ settingsRoutes.put("/", zValidator("json", SettingsDTO), async (c) => {
 });
 
 export default settingsRoutes;
+

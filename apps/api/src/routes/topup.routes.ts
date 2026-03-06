@@ -2,9 +2,9 @@ import { zValidator } from "@hono/zod-validator";
 import { CreateTopupDTO, TopupDTO } from "@repo/contract";
 import { db } from "@repo/db";
 import { Hono } from "hono";
-import { toTopupDTO } from "../mappers/topup.mapper";
-import { authenticated } from "../middleware/authenticated";
-import { toSettingsDTO } from "../mappers/settings.mapper";
+import { toTopupDTO } from "../mappers/topup.mapper.js";
+import { authenticated } from "../middleware/authenticated.js";
+import { toSettingsDTO } from "../mappers/settings.mapper.js";
 
 async function getSettings() {
   const settingsEntries = await db.settingsV2.findMany();
@@ -119,3 +119,4 @@ topupRoutes.post("/:id/approve", authenticated, async (c) => {
 });
 
 export default topupRoutes;
+

@@ -1,9 +1,9 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
 import { LoginDTO, AuthUserDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
-import { verifyPassword } from "../lib/password";
+import { verifyPassword } from "../lib/password.js";
 import { sign } from "hono/jwt";
 
 const authRoutes = new Hono();
@@ -49,3 +49,4 @@ authRoutes.get("/", authenticated, async (c) => {
 });
 
 export default authRoutes;
+

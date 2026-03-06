@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
-import { toProductDTO } from "../mappers/product.mapper";
+import { toProductDTO } from "../mappers/product.mapper.js";
 import {
   CreateProductDTO,
   UpdateProductDTO,
@@ -9,7 +9,7 @@ import {
   ProductStockDTO,
 } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
-import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper";
+import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
 
 const productRoutes = new Hono();
 
@@ -176,3 +176,4 @@ productRoutes.get("/stock", authenticated, async (c) => {
 });
 
 export default productRoutes;
+

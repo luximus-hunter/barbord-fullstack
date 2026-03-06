@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
 import {
   AutomaticTopupDTO,
@@ -7,7 +7,7 @@ import {
   UpdateAutomaticTopupDTO,
 } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
-import { toAutomaticTopupDTO } from "../mappers/automatic-topup.mapper";
+import { toAutomaticTopupDTO } from "../mappers/automatic-topup.mapper.js";
 
 const automaticTopupRoutes = new Hono();
 
@@ -82,3 +82,4 @@ automaticTopupRoutes.delete("/:id", authenticated, async (c) => {
 });
 
 export default automaticTopupRoutes;
+

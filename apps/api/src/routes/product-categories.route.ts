@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
 import {
   UpdateProductCategoryDTO,
@@ -81,3 +81,4 @@ productCategoryRoutes.delete("/:id", authenticated, async (c) => {
 });
 
 export default productCategoryRoutes;
+

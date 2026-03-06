@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import routes from "./routes";
+import routes from "./routes/index.js";
 import { cors } from "hono/cors";
 
 const app = new Hono();
@@ -30,3 +30,4 @@ app.onError((err, c) =>
 );
 
 export default app;
+

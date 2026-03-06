@@ -1,6 +1,6 @@
 import { db } from "@repo/db";
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import {
   CreateProductStockHistoryDTO,
   CreateProductStockHistoryRowDTO,
@@ -9,7 +9,7 @@ import {
   UpdateProductStockHistoryDTO,
   UpdateProductStockHistoryRowDTO,
 } from "@repo/contract";
-import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper";
+import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
 import { zValidator } from "@hono/zod-validator";
 
 const productStockHistoryRoutes = new Hono();
@@ -171,3 +171,4 @@ productStockHistoryRoutes.delete(
 );
 
 export default productStockHistoryRoutes;
+

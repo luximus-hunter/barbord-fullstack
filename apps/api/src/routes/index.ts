@@ -1,15 +1,15 @@
 import { Hono } from "hono";
-import userRoutes from "./user.routes";
-import productRoutes from "./product.routes";
-import adminRoutes from "./admin.routes";
-import authRoutes from "./auth.routes";
-import announcementRoutes from "./announcement.routes";
-import settingsRoutes from "./settings.route";
-import automaticTopupRoutes from "./automatic-topup.routes";
-import productImageRoutes from "./product-images.routes";
-import productCategoryRoutes from "./product-categories.route";
-import topupRoutes from "./topup.routes";
-import orderRoutes from "./order.routes";
+import userRoutes from "./user.routes.js";
+import productRoutes from "./product.routes.js";
+import adminRoutes from "./admin.routes.js";
+import authRoutes from "./auth.routes.js";
+import announcementRoutes from "./announcement.routes.js";
+import settingsRoutes from "./settings.route.js";
+import automaticTopupRoutes from "./automatic-topup.routes.js";
+import productImageRoutes from "./product-images.routes.js";
+import productCategoryRoutes from "./product-categories.route.js";
+import topupRoutes from "./topup.routes.js";
+import orderRoutes from "./order.routes.js";
 
 const routes = new Hono();
 
@@ -29,3 +29,4 @@ routes.route("/product-categories", productCategoryRoutes);
 // routes.route("/product-order-history", productOrderHistoryRoutes);
 
 export default routes;
+

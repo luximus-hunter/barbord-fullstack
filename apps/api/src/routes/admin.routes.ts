@@ -1,7 +1,7 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { db } from "@repo/db";
-import { toAdminDTO } from "../mappers/admin.mapper";
+import { toAdminDTO } from "../mappers/admin.mapper.js";
 import { CreateAdminDTO, UpdateAdminDTO, AdminDTO } from "@repo/contract";
 import { zValidator } from "@hono/zod-validator";
 
@@ -105,3 +105,4 @@ adminRoutes.get("/archived", authenticated, async (c) => {
 });
 
 export default adminRoutes;
+

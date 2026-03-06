@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated";
+import { authenticated } from "../middleware/authenticated.js";
 import { CreateProductImageDTO, ProductImageDTO } from "@repo/contract";
 import { del, list, put } from "@vercel/blob";
 import sharp from "sharp";
@@ -109,3 +109,4 @@ productImageRoutes.delete("/:id", authenticated, async (c) => {
 });
 
 export default productImageRoutes;
+
