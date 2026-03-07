@@ -53,7 +53,11 @@ To get started with the Barbord Monorepo, follow these steps:
 
 1. Install [VSCode](https://code.visualstudio.com/) and the recommended extensions. These should be prompted when you open the project, but you can also find them in `.vscode/extensions.json`.
 2. Install [NodeJS](https://nodejs.org/) and [pnpm](https://pnpm.io/).
-3. Set up the environment variables. You can copy the `.env.example` files in each package to `.env` and fill in the values. Do this for:
+3. Set up the environment variables by creating mode-specific env files. Copy each `.env.example` and create:
+   - `.env.development` for local development values
+   - `.env.production` for production build/runtime values
+   These are used automatically by the scripts (`dev` uses development, `build` uses production).
+   Do this for:
    - `@barbord/api`
    - `@barbord/web`
    - `@barbord/db`

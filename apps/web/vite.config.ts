@@ -1,17 +1,5 @@
-import { defineConfig } from "vite";
-import solid from "vite-plugin-solid";
-import { tanstackRouter } from "@tanstack/router-plugin/vite";
+import tailwindcss from '@tailwindcss/vite';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
 
-export default defineConfig({
-  plugins: [
-    tanstackRouter({
-      target: "solid",
-      autoCodeSplitting: true,
-      routesDirectory: "./src/routes",
-      generatedRouteTree: "./src/routeTree.gen.ts",
-      routeFileIgnorePrefix: "-",
-      quoteStyle: "single",
-    }),
-    solid(),
-  ],
-});
+export default defineConfig({ plugins: [tailwindcss(), sveltekit()] });

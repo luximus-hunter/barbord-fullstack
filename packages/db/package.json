@@ -17,8 +17,8 @@
   "scripts": {
     "build": "tsdown --config ../../tsdown.config.ts",
     "postinstall": "prisma generate",
-    "generate": "prisma generate",
-    "push": "prisma db push"
+    "generate": "dotenv -e .env.development -- prisma generate",
+    "push": "dotenv -e .env.development -- prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^7.4.0",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "dotenv-cli": "^8.0.0",
     "tsdown": "^0.15.6"
   }
 }

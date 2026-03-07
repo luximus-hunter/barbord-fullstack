@@ -1,29 +1,35 @@
 {
   "name": "@barbord/web",
   "private": true,
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "start": "pnpm build && vite preview"
+    "dev": "vite dev",
+    "prebuild": "pnpm --filter @barbord/contract build && pnpm --filter @barbord/gateway build",
+    "build": "vite build",
+    "start": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+  },
+  "engines": {
+    "node": "=22",
+    "pnpm": "=10"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "^7.0.0",
+    "@sveltejs/kit": "^2.50.2",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "@tailwindcss/forms": "^0.5.11",
+    "@tailwindcss/vite": "^4.1.18",
+    "svelte": "^5.51.0",
+    "svelte-check": "^4.4.2",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
   },
   "dependencies": {
     "@barbord/contract": "workspace:*",
-    "@barbord/gateway": "workspace:*",
-    "@tanstack/solid-query": "^5.90.23",
-    "@tanstack/solid-router": "^1.160.0",
-    "solid-js": "^1.9.10",
-    "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@tanstack/router-plugin": "^1.161.0",
-    "@types/node": "^24.10.1",
-    "typescript": "~5.9.3",
-    "vite": "^8.0.0-beta.13",
-    "vite-plugin-solid": "^2.11.10"
-  },
-  "overrides": {
-    "vite": "^8.0.0-beta.13"
+    "@barbord/gateway": "workspace:*"
   }
 }
