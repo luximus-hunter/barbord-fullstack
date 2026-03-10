@@ -9,5 +9,9 @@
     "Topup",
     "topups",
     "Topups"
-  ]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always"
+  },
+  "oxc.typeAware": true
 }

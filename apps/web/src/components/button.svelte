@@ -5,7 +5,7 @@
     HTMLAnchorAttributes,
   } from "svelte/elements";
 
-  const baseStyles = "rounded font-semibold flex-1 w-full";
+  const baseStyles = "rounded font-semibold flex-1 w-full h-9 block text-center";
 
   const buttonSizes = {
     xs: "px-1 py-0.5 text-xs",

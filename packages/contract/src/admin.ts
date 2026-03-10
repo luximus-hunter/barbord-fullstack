@@ -3,14 +3,8 @@ import { z } from 'zod';
 export const AdminDTO = z
   .object({
     id: z.number(),
-    username: z
-      .string()
-      .nonempty('Username is verplicht')
-      .min(1, 'Username is verplicht'),
-    displayname: z
-      .string()
-      .nonempty('Displayname is verplicht')
-      .min(1, 'Displayname is verplicht'),
+    username: z.string().min(1, 'Username is verplicht'),
+    displayname: z.string().min(1, 'Displayname is verplicht'),
     archived: z.boolean().default(false),
   })
   .strict();
@@ -20,10 +14,7 @@ export const CreateAdminDTO = AdminDTO.pick({
   displayname: true,
 })
   .extend({
-    password: z
-      .string()
-      .nonempty('Wachtwoord is verplicht')
-      .min(1, 'Wachtwoord is verplicht'),
+    password: z.string().min(1, 'Wachtwoord is verplicht'),
   })
   .strict();
 
