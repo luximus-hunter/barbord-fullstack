@@ -1,13 +1,13 @@
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@barbord/db";
-import { toUserDTO } from "../mappers/user.mapper.js";
-import { CreateUserDTO, UpdateUserDTO, UserDTO } from "@barbord/contract";
-import { zValidator } from "@hono/zod-validator";
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
+import { db } from '@barbord/db';
+import { toUserDTO } from '../mappers/user.mapper.js';
+import { CreateUserDTO, UpdateUserDTO, UserDTO } from '@barbord/contract';
+import { zValidator } from '@hono/zod-validator';
 
 const userRoutes = new Hono();
 
-userRoutes.get("/", authenticated, async (c) => {
+userRoutes.get('/', authenticated, async (c) => {
   const users = await db.user.findMany({
     where: { archived: false },
   });
@@ -15,18 +15,23 @@ userRoutes.get("/", authenticated, async (c) => {
   return c.json<UserDTO[]>(users.map(toUserDTO));
 });
 
-userRoutes.post("/", authenticated, zValidator("json", CreateUserDTO), async (c) => {
-  const data = c.req.valid("json");
+userRoutes.post(
+  '/',
+  authenticated,
+  zValidator('json', CreateUserDTO),
+  async (c) => {
+    const data = c.req.valid('json');
 
-  const user = await db.user.create({
-    data,
-  });
+    const user = await db.user.create({
+      data,
+    });
 
-  return c.json<UserDTO>(toUserDTO(user));
-});
+    return c.json<UserDTO>(toUserDTO(user));
+  },
+);
 
-userRoutes.get("/:id", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+userRoutes.get('/:id', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const user = await db.user.findUnique({
     where: { id },
@@ -40,12 +45,12 @@ userRoutes.get("/:id", authenticated, async (c) => {
 });
 
 userRoutes.put(
-  "/:id",
+  '/:id',
   authenticated,
-  zValidator("json", UpdateUserDTO),
+  zValidator('json', UpdateUserDTO),
   async (c) => {
-    const id = parseInt(c.req.param("id"), 10);
-    const data = c.req.valid("json");
+    const id = parseInt(c.req.param('id'), 10);
+    const data = c.req.valid('json');
 
     const user = await db.user.update({
       where: { id },
@@ -60,8 +65,8 @@ userRoutes.put(
   },
 );
 
-userRoutes.post("/:id/archive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+userRoutes.post('/:id/archive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const user = await db.user.update({
     where: { id },
@@ -75,8 +80,8 @@ userRoutes.post("/:id/archive", authenticated, async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-userRoutes.post("/:id/unarchive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+userRoutes.post('/:id/unarchive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const user = await db.user.update({
     where: { id },
@@ -90,13 +95,13 @@ userRoutes.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<UserDTO>(toUserDTO(user));
 });
 
-userRoutes.get("/all", authenticated, async (c) => {
+userRoutes.get('/all', authenticated, async (c) => {
   const users = await db.user.findMany();
 
   return c.json<UserDTO[]>(users.map(toUserDTO));
 });
 
-userRoutes.get("/archived", authenticated, async (c) => {
+userRoutes.get('/archived', authenticated, async (c) => {
   const users = await db.user.findMany({
     where: { archived: true },
   });
@@ -105,4 +110,3 @@ userRoutes.get("/archived", authenticated, async (c) => {
 });
 
 export default userRoutes;
-

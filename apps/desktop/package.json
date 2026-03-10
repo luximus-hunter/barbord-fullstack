@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tauri dev",
-    "build": "tauri build --debug"
+    "build": "tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^2",

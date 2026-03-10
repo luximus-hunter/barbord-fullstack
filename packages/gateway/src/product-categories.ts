@@ -2,22 +2,22 @@ import {
   CreateProductCategoryDTO,
   UpdateProductCategoryDTO,
   ProductCategoryDTO,
-} from "@barbord/contract";
-import { fetchWithSchema } from "./lib/fetchWithSchema";
+} from '@barbord/contract';
+import { fetchWithSchema } from './lib/fetchWithSchema';
 
 export const productCategoriesGateway = (baseUrl: string) => ({
   get: () =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/product-categories",
+      method: 'GET',
+      url: baseUrl + '/product-categories',
       responseSchema: ProductCategoryDTO.array(),
     }),
   create: (body: CreateProductCategoryDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "POST",
-      url: baseUrl + "/product-categories",
+      method: 'POST',
+      url: baseUrl + '/product-categories',
       body,
       bodySchema: CreateProductCategoryDTO,
       responseSchema: ProductCategoryDTO,
@@ -25,8 +25,8 @@ export const productCategoriesGateway = (baseUrl: string) => ({
   update: (id: number, body: UpdateProductCategoryDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "PUT",
-      url: baseUrl + "/product-categories/" + id,
+      method: 'PUT',
+      url: baseUrl + '/product-categories/' + id,
       body,
       bodySchema: UpdateProductCategoryDTO,
       responseSchema: ProductCategoryDTO,
@@ -34,7 +34,7 @@ export const productCategoriesGateway = (baseUrl: string) => ({
   delete: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "DELETE",
-      url: baseUrl + "/product-categories/" + id,
+      method: 'DELETE',
+      url: baseUrl + '/product-categories/' + id,
     }),
 });

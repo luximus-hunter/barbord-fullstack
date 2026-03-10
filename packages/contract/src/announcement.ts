@@ -1,13 +1,15 @@
-import { z } from "zod";
-import { ColorEnum } from "./enums.js";
+import { z } from 'zod';
+import { ColorEnum } from './enums.js';
 
-export const AnnouncementDTO = z.object({
-  id: z.number(),
-  title: z.string(),
-  content: z.string().max(1000),
-  authorId: z.number(),
-  color: z.enum(ColorEnum.options).nullable().default(null),
-}).strict();
+export const AnnouncementDTO = z
+  .object({
+    id: z.number(),
+    title: z.string(),
+    content: z.string().max(1000),
+    authorId: z.number(),
+    color: z.enum(ColorEnum.options).nullable().default(null),
+  })
+  .strict();
 
 export const CreateAnnouncementDTO = AnnouncementDTO.pick({
   title: true,
@@ -20,7 +22,9 @@ export const UpdateAnnouncementDTO = AnnouncementDTO.pick({
   title: true,
   content: true,
   color: true,
-}).partial().strict();
+})
+  .partial()
+  .strict();
 
 export type AnnouncementDTO = z.infer<typeof AnnouncementDTO>;
 export type CreateAnnouncementDTO = z.infer<typeof CreateAnnouncementDTO>;

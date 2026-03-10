@@ -1,5 +1,5 @@
-import { TopupDTO } from "@barbord/contract";
-import { Topup } from "@barbord/db";
+import { TopupDTO } from '@barbord/contract';
+import { Topup } from '@barbord/db';
 
 export function toTopupDTO(topup: Topup): TopupDTO {
   return {

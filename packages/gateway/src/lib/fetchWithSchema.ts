@@ -1,12 +1,12 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-export const lsCachePrefix = "gateway_cache_";
+export const lsCachePrefix = 'gateway_cache_';
 
 type FetchWithSchemaParams<
   BodySchema extends z.ZodTypeAny = z.ZodTypeAny,
   ResponseSchema extends z.ZodTypeAny = z.ZodTypeAny,
 > = {
-  method: "GET" | "POST" | "PUT" | "DELETE";
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE';
   url: string;
   body?: z.infer<BodySchema>;
   bodySchema?: BodySchema;
@@ -77,17 +77,17 @@ export async function fetchWithSchema<
   }
 
   // Get the token from localStorage if useToken is true
-  const token = useToken ? localStorage.getItem(lsCachePrefix + "token") : null;
+  const token = useToken ? localStorage.getItem(lsCachePrefix + 'token') : null;
 
   // If useToken is true but no token is found, throw an error
   if (useToken && !token) {
-    throw new Error("No authentication token found");
+    throw new Error('No authentication token found');
   }
 
   // Make the fetch request with appropriate headers and body
   const response = await fetch(url, {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
     },
     method,
@@ -115,6 +115,7 @@ export async function fetchWithSchema<
 
   // If response validation fails, throw an error
   if (!responseResult.success) {
+    console.error('Response validation error:', responseResult.error);
     throw new Error(`Invalid response format from ${url}`);
   }
 

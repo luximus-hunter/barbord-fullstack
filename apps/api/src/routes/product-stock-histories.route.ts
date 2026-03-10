@@ -1,6 +1,6 @@
-import { db } from "@barbord/db";
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
+import { db } from '@barbord/db';
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
 import {
   CreateProductStockHistoryDTO,
   CreateProductStockHistoryRowDTO,
@@ -8,15 +8,15 @@ import {
   ProductStockHistoryRowDTO,
   UpdateProductStockHistoryDTO,
   UpdateProductStockHistoryRowDTO,
-} from "@barbord/contract";
-import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
-import { zValidator } from "@hono/zod-validator";
+} from '@barbord/contract';
+import { toProductStockHistoryDTO } from '../mappers/product-stock-history.mapper.js';
+import { zValidator } from '@hono/zod-validator';
 
 const productStockHistoryRoutes = new Hono();
 
-productStockHistoryRoutes.get("/", authenticated, async (c) => {
+productStockHistoryRoutes.get('/', authenticated, async (c) => {
   const histories = await db.itemStockHistory.findMany({
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
   });
 
   return c.json<ProductStockHistoryDTO[]>(
@@ -25,9 +25,9 @@ productStockHistoryRoutes.get("/", authenticated, async (c) => {
 });
 
 productStockHistoryRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateProductStockHistoryDTO),
+  zValidator('json', CreateProductStockHistoryDTO),
   async (c) => {
     const data = await c.req.json();
 
@@ -39,8 +39,8 @@ productStockHistoryRoutes.post(
   },
 );
 
-productStockHistoryRoutes.get("/:stockId", authenticated, async (c) => {
-  const stockId = parseInt(c.req.param("stockId"), 10);
+productStockHistoryRoutes.get('/:stockId', authenticated, async (c) => {
+  const stockId = parseInt(c.req.param('stockId'), 10);
 
   const history = await db.itemStockHistory.findUnique({
     where: { id: stockId },
@@ -57,11 +57,11 @@ productStockHistoryRoutes.get("/:stockId", authenticated, async (c) => {
 });
 
 productStockHistoryRoutes.put(
-  "/:stockId",
+  '/:stockId',
   authenticated,
-  zValidator("json", UpdateProductStockHistoryDTO),
+  zValidator('json', UpdateProductStockHistoryDTO),
   async (c) => {
-    const stockId = parseInt(c.req.param("stockId"), 10);
+    const stockId = parseInt(c.req.param('stockId'), 10);
     const data = await c.req.json();
 
     const updatedHistory = await db.itemStockHistory.update({
@@ -82,8 +82,8 @@ productStockHistoryRoutes.put(
   },
 );
 
-productStockHistoryRoutes.delete("/:stockId", authenticated, async (c) => {
-  const stockId = parseInt(c.req.param("stockId"), 10);
+productStockHistoryRoutes.delete('/:stockId', authenticated, async (c) => {
+  const stockId = parseInt(c.req.param('stockId'), 10);
 
   const deletedHistory = await db.itemStockHistory.delete({
     where: { id: stockId },
@@ -99,8 +99,8 @@ productStockHistoryRoutes.delete("/:stockId", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-productStockHistoryRoutes.get("/:stockId/rows", authenticated, async (c) => {
-  const stockId = parseInt(c.req.param("stockId"), 10);
+productStockHistoryRoutes.get('/:stockId/rows', authenticated, async (c) => {
+  const stockId = parseInt(c.req.param('stockId'), 10);
 
   const rows = await db.itemStockHistoryRow.findMany({
     where: { itemStockHistoryId: stockId },
@@ -110,11 +110,11 @@ productStockHistoryRoutes.get("/:stockId/rows", authenticated, async (c) => {
 });
 
 productStockHistoryRoutes.post(
-  "/:stockId/rows",
+  '/:stockId/rows',
   authenticated,
-  zValidator("json", CreateProductStockHistoryRowDTO),
+  zValidator('json', CreateProductStockHistoryRowDTO),
   async (c) => {
-    const stockId = parseInt(c.req.param("stockId"), 10);
+    const stockId = parseInt(c.req.param('stockId'), 10);
     const data = await c.req.json();
 
     const newRow = await db.itemStockHistoryRow.create({
@@ -126,11 +126,11 @@ productStockHistoryRoutes.post(
 );
 
 productStockHistoryRoutes.put(
-  "/rows/:stockRowId",
+  '/rows/:stockRowId',
   authenticated,
-  zValidator("json", UpdateProductStockHistoryRowDTO),
+  zValidator('json', UpdateProductStockHistoryRowDTO),
   async (c) => {
-    const stockRowId = parseInt(c.req.param("stockRowId"), 10);
+    const stockRowId = parseInt(c.req.param('stockRowId'), 10);
     const data = await c.req.json();
 
     const updatedRow = await db.itemStockHistoryRow.update({
@@ -150,10 +150,10 @@ productStockHistoryRoutes.put(
 );
 
 productStockHistoryRoutes.delete(
-  "/rows/:stockRowId",
+  '/rows/:stockRowId',
   authenticated,
   async (c) => {
-    const stockRowId = parseInt(c.req.param("stockRowId"), 10);
+    const stockRowId = parseInt(c.req.param('stockRowId'), 10);
 
     const deletedRow = await db.itemStockHistoryRow.delete({
       where: { id: stockRowId },
@@ -171,4 +171,3 @@ productStockHistoryRoutes.delete(
 );
 
 export default productStockHistoryRoutes;
-

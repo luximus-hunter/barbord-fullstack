@@ -1,27 +1,27 @@
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@barbord/db";
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
+import { db } from '@barbord/db';
 import {
   UpdateProductCategoryDTO,
   ProductCategoryDTO,
   CreateProductCategoryDTO,
-} from "@barbord/contract";
-import { zValidator } from "@hono/zod-validator";
+} from '@barbord/contract';
+import { zValidator } from '@hono/zod-validator';
 
 const productCategoryRoutes = new Hono();
 
-productCategoryRoutes.get("/", authenticated, async (c) => {
+productCategoryRoutes.get('/', authenticated, async (c) => {
   const productCategories = await db.itemCategory.findMany();
 
   return c.json<ProductCategoryDTO[]>(productCategories);
 });
 
 productCategoryRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateProductCategoryDTO),
+  zValidator('json', CreateProductCategoryDTO),
   async (c) => {
-    const data = c.req.valid("json");
+    const data = c.req.valid('json');
 
     const productCategory = await db.itemCategory.create({
       data,
@@ -31,8 +31,8 @@ productCategoryRoutes.post(
   },
 );
 
-productCategoryRoutes.get("/:id", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+productCategoryRoutes.get('/:id', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const productCategory = await db.itemCategory.findUnique({
     where: { id },
@@ -46,12 +46,12 @@ productCategoryRoutes.get("/:id", authenticated, async (c) => {
 });
 
 productCategoryRoutes.put(
-  "/:id",
+  '/:id',
   authenticated,
-  zValidator("json", UpdateProductCategoryDTO),
+  zValidator('json', UpdateProductCategoryDTO),
   async (c) => {
-    const id = parseInt(c.req.param("id"), 10);
-    const data = c.req.valid("json");
+    const id = parseInt(c.req.param('id'), 10);
+    const data = c.req.valid('json');
 
     const productCategory = await db.itemCategory.update({
       where: { id },
@@ -66,8 +66,8 @@ productCategoryRoutes.put(
   },
 );
 
-productCategoryRoutes.delete("/:id", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+productCategoryRoutes.delete('/:id', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const productCategory = await db.itemCategory.delete({
     where: { id },
@@ -81,4 +81,3 @@ productCategoryRoutes.delete("/:id", authenticated, async (c) => {
 });
 
 export default productCategoryRoutes;
-

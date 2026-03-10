@@ -2,29 +2,29 @@ import {
   AnnouncementDTO,
   CreateAnnouncementDTO,
   UpdateAnnouncementDTO,
-} from "@barbord/contract";
-import { fetchWithSchema } from "./lib/fetchWithSchema";
+} from '@barbord/contract';
+import { fetchWithSchema } from './lib/fetchWithSchema';
 
 export const announcementsGateway = (baseUrl: string) => ({
   get: () =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/announcements",
+      method: 'GET',
+      url: baseUrl + '/announcements',
       responseSchema: AnnouncementDTO.array(),
     }),
   getById: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/announcements/" + id,
+      method: 'GET',
+      url: baseUrl + '/announcements/' + id,
       responseSchema: AnnouncementDTO,
     }),
   create: (body: CreateAnnouncementDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "POST",
-      url: baseUrl + "/announcements",
+      method: 'POST',
+      url: baseUrl + '/announcements',
       body,
       bodySchema: CreateAnnouncementDTO,
       responseSchema: AnnouncementDTO,
@@ -32,8 +32,8 @@ export const announcementsGateway = (baseUrl: string) => ({
   update: (id: number, body: UpdateAnnouncementDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "PUT",
-      url: baseUrl + "/announcements/" + id,
+      method: 'PUT',
+      url: baseUrl + '/announcements/' + id,
       body,
       bodySchema: UpdateAnnouncementDTO,
       responseSchema: AnnouncementDTO,
@@ -41,7 +41,7 @@ export const announcementsGateway = (baseUrl: string) => ({
   delete: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "DELETE",
-      url: baseUrl + "/announcements/" + id,
+      method: 'DELETE',
+      url: baseUrl + '/announcements/' + id,
     }),
 });

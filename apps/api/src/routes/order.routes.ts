@@ -1,11 +1,11 @@
-import { zValidator } from "@hono/zod-validator";
-import { CreateOrderDTO, OrderDTO } from "@barbord/contract";
-import { db } from "@barbord/db";
-import { Hono } from "hono";
-import { toOrderDTO } from "../mappers/order.mapper.js";
-import { authenticated } from "../middleware/authenticated.js";
-import { toSettingsDTO } from "../mappers/settings.mapper.js";
-import { toUserDTO } from "../mappers/user.mapper.js";
+import { zValidator } from '@hono/zod-validator';
+import { CreateOrderDTO, OrderDTO } from '@barbord/contract';
+import { db } from '@barbord/db';
+import { Hono } from 'hono';
+import { toOrderDTO } from '../mappers/order.mapper.js';
+import { authenticated } from '../middleware/authenticated.js';
+import { toSettingsDTO } from '../mappers/settings.mapper.js';
+import { toUserDTO } from '../mappers/user.mapper.js';
 
 async function getSettings() {
   const settingsEntries = await db.settingsV2.findMany();
@@ -15,11 +15,11 @@ async function getSettings() {
 const orderRoutes = new Hono();
 
 orderRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateOrderDTO),
+  zValidator('json', CreateOrderDTO),
   async (c) => {
-    const data = c.req.valid("json");
+    const data = c.req.valid('json');
 
     const order = await db.order.create({
       data,
@@ -52,19 +52,19 @@ orderRoutes.post(
 );
 
 // This route is unprotected so the user can see their history
-orderRoutes.get("/user/:userId", async (c) => {
-  const userId = parseInt(c.req.param("userId"), 10);
+orderRoutes.get('/user/:userId', async (c) => {
+  const userId = parseInt(c.req.param('userId'), 10);
 
   const orders = await db.order.findMany({
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
     where: { userId },
   });
 
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orderRoutes.get("/page/:page", authenticated, async (c) => {
-  const page = parseInt(c.req.param("page"), 10);
+orderRoutes.get('/page/:page', authenticated, async (c) => {
+  const page = parseInt(c.req.param('page'), 10);
 
   const settings = await getSettings();
   const pageSize = settings.itemsPerPage;
@@ -72,15 +72,15 @@ orderRoutes.get("/page/:page", authenticated, async (c) => {
   const orders = await db.order.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
   });
 
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orderRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
-  const page = parseInt(c.req.param("page"), 10);
-  const userId = parseInt(c.req.param("userId"), 10);
+orderRoutes.get('/page/:page/user/:userId', authenticated, async (c) => {
+  const page = parseInt(c.req.param('page'), 10);
+  const userId = parseInt(c.req.param('userId'), 10);
 
   const settings = await getSettings();
   const pageSize = settings.itemsPerPage;
@@ -88,15 +88,15 @@ orderRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
   const orders = await db.order.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
     where: { userId },
   });
 
   return c.json<OrderDTO[]>(orders.map(toOrderDTO));
 });
 
-orderRoutes.post("/:id/undo", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+orderRoutes.post('/:id/undo', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const order = await db.order.findUnique({
     where: { id },
@@ -123,4 +123,3 @@ orderRoutes.post("/:id/undo", authenticated, async (c) => {
 });
 
 export default orderRoutes;
-

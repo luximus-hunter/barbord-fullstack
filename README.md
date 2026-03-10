@@ -107,3 +107,7 @@ You can reset the repo with `./reset.ps1` on Windows. This removes:
 - `.turbo` for all
 - `dist` for all
 - `target` for @barbord/desktop
+
+## Colors
+
+https://coolors.co/2d2d2a-4c4c47-848fa5-c14953-fff4e9

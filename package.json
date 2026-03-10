@@ -1,10 +1,11 @@
 {
   "name": "barbord-fullstack",
   "private": true,
-  "packageManager": "pnpm@10.30.0+sha512.2b5753de015d480eeb88f5b5b61e0051f05b4301808a82ec8b840c9d2adf7748eb352c83f5c1593ca703ff1017295bc3fdd3119abb9686efc96b9fcb18200937",
+  "packageManager": "pnpm@10.31.0+sha512.e3927388bfaa8078ceb79b748ffc1e8274e84d75163e67bc22e06c0d3aed43dd153151cbf11d7f8301ff4acb98c68bdc5cadf6989532801ffafe3b3e4a63c268",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "build:libs": "turbo build --filter @barbord/contract --filter @barbord/gateway --filter @barbord/db",
     "start": "turbo start",
     "db:generate": "pnpm --filter @barbord/db generate",
     "db:push": "pnpm --filter @barbord/db push",
@@ -14,7 +15,9 @@
     "api:start": "pnpm --filter @barbord/api start",
     "web:dev": "turbo dev --filter @barbord/web --filter @barbord/api",
     "web:build": "pnpm --filter @barbord/web build",
-    "web:start": "pnpm --filter @barbord/web start"
+    "web:start": "pnpm --filter @barbord/web start",
+    "lint": "turbo run lint",
+    "format": "turbo run format"
   },
   "devDependencies": {
     "turbo": "^2.0.0",

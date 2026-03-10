@@ -1,13 +1,13 @@
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@barbord/db";
-import { toAdminDTO } from "../mappers/admin.mapper.js";
-import { CreateAdminDTO, UpdateAdminDTO, AdminDTO } from "@barbord/contract";
-import { zValidator } from "@hono/zod-validator";
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
+import { db } from '@barbord/db';
+import { toAdminDTO } from '../mappers/admin.mapper.js';
+import { CreateAdminDTO, UpdateAdminDTO, AdminDTO } from '@barbord/contract';
+import { zValidator } from '@hono/zod-validator';
 
 const adminRoutes = new Hono();
 
-adminRoutes.get("/", async (c) => {
+adminRoutes.get('/', async (c) => {
   const admins = await db.admin.findMany({
     where: { archived: false },
   });
@@ -15,18 +15,23 @@ adminRoutes.get("/", async (c) => {
   return c.json<AdminDTO[]>(admins.map(toAdminDTO));
 });
 
-adminRoutes.post("/", authenticated, zValidator("json", CreateAdminDTO), async (c) => {
-  const data = c.req.valid("json");
+adminRoutes.post(
+  '/',
+  authenticated,
+  zValidator('json', CreateAdminDTO),
+  async (c) => {
+    const data = c.req.valid('json');
 
-  const admin = await db.admin.create({
-    data,
-  });
+    const admin = await db.admin.create({
+      data,
+    });
 
-  return c.json<AdminDTO>(toAdminDTO(admin));
-});
+    return c.json<AdminDTO>(toAdminDTO(admin));
+  },
+);
 
-adminRoutes.get("/:id", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+adminRoutes.get('/:id', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const admin = await db.admin.findUnique({
     where: { id },
@@ -40,12 +45,12 @@ adminRoutes.get("/:id", authenticated, async (c) => {
 });
 
 adminRoutes.put(
-  "/:id",
+  '/:id',
   authenticated,
-  zValidator("json", UpdateAdminDTO),
+  zValidator('json', UpdateAdminDTO),
   async (c) => {
-    const id = parseInt(c.req.param("id"), 10);
-    const data = c.req.valid("json");
+    const id = parseInt(c.req.param('id'), 10);
+    const data = c.req.valid('json');
 
     const admin = await db.admin.update({
       where: { id },
@@ -60,8 +65,8 @@ adminRoutes.put(
   },
 );
 
-adminRoutes.post("/:id/archive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+adminRoutes.post('/:id/archive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const admin = await db.admin.update({
     where: { id },
@@ -75,8 +80,8 @@ adminRoutes.post("/:id/archive", authenticated, async (c) => {
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-adminRoutes.post("/:id/unarchive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+adminRoutes.post('/:id/unarchive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const admin = await db.admin.update({
     where: { id },
@@ -90,13 +95,13 @@ adminRoutes.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<AdminDTO>(toAdminDTO(admin));
 });
 
-adminRoutes.get("/all", authenticated, async (c) => {
+adminRoutes.get('/all', authenticated, async (c) => {
   const admins = await db.admin.findMany();
 
   return c.json<AdminDTO[]>(admins.map(toAdminDTO));
 });
 
-adminRoutes.get("/archived", authenticated, async (c) => {
+adminRoutes.get('/archived', authenticated, async (c) => {
   const admins = await db.admin.findMany({
     where: { archived: true },
   });
@@ -105,4 +110,3 @@ adminRoutes.get("/archived", authenticated, async (c) => {
 });
 
 export default adminRoutes;
-

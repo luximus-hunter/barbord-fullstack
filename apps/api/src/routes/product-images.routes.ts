@@ -1,13 +1,13 @@
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
-import { CreateProductImageDTO, ProductImageDTO } from "@barbord/contract";
-import { del, list, put } from "@vercel/blob";
-import sharp from "sharp";
-import { db } from "@barbord/db";
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
+import { CreateProductImageDTO, ProductImageDTO } from '@barbord/contract';
+import { del, list, put } from '@vercel/blob';
+import sharp from 'sharp';
+import { db } from '@barbord/db';
 
 const MAX_PREFERRED_WIDTH = 400;
 const MAX_PREFERRED_HEIGHT = 400;
-const FOLDER_PREFIX = "images/"; // Including the /
+const FOLDER_PREFIX = 'images/'; // Including the /
 
 const productImageRoutes = new Hono();
 
@@ -18,19 +18,19 @@ async function getImages() {
     })
   ).blobs
     .map((file) => ({
-      id: file.pathname.split("-").pop()?.split(".")[0] || "", // Extract the ID from the filename
+      id: file.pathname.split('-').pop()?.split('.')[0] || '', // Extract the ID from the filename
       url: file.url,
     }))
     .filter((img) => img.id !== FOLDER_PREFIX); // Don't include folders itself
 }
 
-productImageRoutes.get("/", async (c) => {
+productImageRoutes.get('/', async (c) => {
   const images = await getImages();
 
   return c.json<ProductImageDTO[]>(images);
 });
 
-productImageRoutes.post("/", authenticated, async (c) => {
+productImageRoutes.post('/', authenticated, async (c) => {
   const body = await c.req.parseBody();
 
   const requestFiles = Array.isArray(body.files)
@@ -59,13 +59,13 @@ productImageRoutes.post("/", authenticated, async (c) => {
       // Resize the image to a maximum of ?x? pixels, maintaining aspect ratio
       // Size if set at the top of the file
       image.resize(MAX_PREFERRED_WIDTH, MAX_PREFERRED_HEIGHT, {
-        fit: "inside",
+        fit: 'inside',
         withoutEnlargement: true,
       });
 
       // Upload the image to Vercel Blob Storage
       await put(FOLDER_PREFIX + file.name, image, {
-        access: "public",
+        access: 'public',
         addRandomSuffix: true,
       });
     } catch (error) {
@@ -78,8 +78,8 @@ productImageRoutes.post("/", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-productImageRoutes.delete("/:id", authenticated, async (c) => {
-  const id = c.req.param("id");
+productImageRoutes.delete('/:id', authenticated, async (c) => {
+  const id = c.req.param('id');
 
   try {
     const images = await getImages();
@@ -109,4 +109,3 @@ productImageRoutes.delete("/:id", authenticated, async (c) => {
 });
 
 export default productImageRoutes;
-

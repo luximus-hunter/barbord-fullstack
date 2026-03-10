@@ -1,6 +1,6 @@
-import { db } from "@barbord/db";
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
+import { db } from '@barbord/db';
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
 import {
   CreateProductOrderHistoryDTO,
   CreateProductOrderHistoryRowDTO,
@@ -8,15 +8,15 @@ import {
   ProductOrderHistoryRowDTO,
   UpdateProductOrderHistoryDTO,
   UpdateProductOrderHistoryRowDTO,
-} from "@barbord/contract";
-import { toProductOrderHistoryDTO } from "../mappers/product-order-history.mapper.js";
-import { zValidator } from "@hono/zod-validator";
+} from '@barbord/contract';
+import { toProductOrderHistoryDTO } from '../mappers/product-order-history.mapper.js';
+import { zValidator } from '@hono/zod-validator';
 
 const productOrderHistoryRoutes = new Hono();
 
-productOrderHistoryRoutes.get("/", authenticated, async (c) => {
+productOrderHistoryRoutes.get('/', authenticated, async (c) => {
   const histories = await db.itemOrderHistory.findMany({
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
   });
 
   return c.json<ProductOrderHistoryDTO[]>(
@@ -25,9 +25,9 @@ productOrderHistoryRoutes.get("/", authenticated, async (c) => {
 });
 
 productOrderHistoryRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateProductOrderHistoryDTO),
+  zValidator('json', CreateProductOrderHistoryDTO),
   async (c) => {
     const data = await c.req.json();
 
@@ -39,8 +39,8 @@ productOrderHistoryRoutes.post(
   },
 );
 
-productOrderHistoryRoutes.get("/:orderId", authenticated, async (c) => {
-  const orderId = parseInt(c.req.param("orderId"), 10);
+productOrderHistoryRoutes.get('/:orderId', authenticated, async (c) => {
+  const orderId = parseInt(c.req.param('orderId'), 10);
 
   const history = await db.itemOrderHistory.findUnique({
     where: { id: orderId },
@@ -57,11 +57,11 @@ productOrderHistoryRoutes.get("/:orderId", authenticated, async (c) => {
 });
 
 productOrderHistoryRoutes.put(
-  "/:orderId",
+  '/:orderId',
   authenticated,
-  zValidator("json", UpdateProductOrderHistoryDTO),
+  zValidator('json', UpdateProductOrderHistoryDTO),
   async (c) => {
-    const orderId = parseInt(c.req.param("orderId"), 10);
+    const orderId = parseInt(c.req.param('orderId'), 10);
     const data = await c.req.json();
 
     const updatedHistory = await db.itemOrderHistory.update({
@@ -82,8 +82,8 @@ productOrderHistoryRoutes.put(
   },
 );
 
-productOrderHistoryRoutes.delete("/:orderId", authenticated, async (c) => {
-  const orderId = parseInt(c.req.param("orderId"), 10);
+productOrderHistoryRoutes.delete('/:orderId', authenticated, async (c) => {
+  const orderId = parseInt(c.req.param('orderId'), 10);
 
   const deletedHistory = await db.itemOrderHistory.delete({
     where: { id: orderId },
@@ -99,8 +99,8 @@ productOrderHistoryRoutes.delete("/:orderId", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-productOrderHistoryRoutes.get("/:orderId/rows", authenticated, async (c) => {
-  const orderId = parseInt(c.req.param("orderId"), 10);
+productOrderHistoryRoutes.get('/:orderId/rows', authenticated, async (c) => {
+  const orderId = parseInt(c.req.param('orderId'), 10);
 
   const rows = await db.itemOrderHistoryRow.findMany({
     where: { itemOrderHistoryId: orderId },
@@ -110,11 +110,11 @@ productOrderHistoryRoutes.get("/:orderId/rows", authenticated, async (c) => {
 });
 
 productOrderHistoryRoutes.post(
-  "/:orderId/rows",
+  '/:orderId/rows',
   authenticated,
-  zValidator("json", CreateProductOrderHistoryRowDTO),
+  zValidator('json', CreateProductOrderHistoryRowDTO),
   async (c) => {
-    const orderId = parseInt(c.req.param("orderId"), 10);
+    const orderId = parseInt(c.req.param('orderId'), 10);
     const data = await c.req.json();
 
     const newRow = await db.itemOrderHistoryRow.create({
@@ -126,11 +126,11 @@ productOrderHistoryRoutes.post(
 );
 
 productOrderHistoryRoutes.put(
-  "/rows/:orderRowId",
+  '/rows/:orderRowId',
   authenticated,
-  zValidator("json", UpdateProductOrderHistoryRowDTO),
+  zValidator('json', UpdateProductOrderHistoryRowDTO),
   async (c) => {
-    const orderRowId = parseInt(c.req.param("orderRowId"), 10);
+    const orderRowId = parseInt(c.req.param('orderRowId'), 10);
     const data = await c.req.json();
 
     const updatedRow = await db.itemOrderHistoryRow.update({
@@ -150,10 +150,10 @@ productOrderHistoryRoutes.put(
 );
 
 productOrderHistoryRoutes.delete(
-  "/rows/:orderRowId",
+  '/rows/:orderRowId',
   authenticated,
   async (c) => {
-    const orderRowId = parseInt(c.req.param("orderRowId"), 10);
+    const orderRowId = parseInt(c.req.param('orderRowId'), 10);
 
     const deletedRow = await db.itemOrderHistoryRow.delete({
       where: { id: orderRowId },
@@ -171,4 +171,3 @@ productOrderHistoryRoutes.delete(
 );
 
 export default productOrderHistoryRoutes;
-

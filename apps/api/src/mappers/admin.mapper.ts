@@ -1,5 +1,5 @@
-import { AdminDTO } from "@barbord/contract";
-import { Admin } from "@barbord/db";
+import { AdminDTO } from '@barbord/contract';
+import { Admin } from '@barbord/db';
 
 export function toAdminDTO(admin: Admin): AdminDTO {
   return {

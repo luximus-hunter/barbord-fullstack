@@ -1,19 +1,19 @@
-import { Hono } from "hono";
-import { authenticated } from "../middleware/authenticated.js";
-import { db } from "@barbord/db";
-import { toProductDTO } from "../mappers/product.mapper.js";
+import { Hono } from 'hono';
+import { authenticated } from '../middleware/authenticated.js';
+import { db } from '@barbord/db';
+import { toProductDTO } from '../mappers/product.mapper.js';
 import {
   CreateProductDTO,
   UpdateProductDTO,
   ProductDTO,
   ProductStockDTO,
-} from "@barbord/contract";
-import { zValidator } from "@hono/zod-validator";
-import { toProductStockHistoryDTO } from "../mappers/product-stock-history.mapper.js";
+} from '@barbord/contract';
+import { zValidator } from '@hono/zod-validator';
+import { toProductStockHistoryDTO } from '../mappers/product-stock-history.mapper.js';
 
 const productRoutes = new Hono();
 
-productRoutes.get("/", authenticated, async (c) => {
+productRoutes.get('/', authenticated, async (c) => {
   const products = await db.item.findMany({
     where: { archived: false },
   });
@@ -22,11 +22,11 @@ productRoutes.get("/", authenticated, async (c) => {
 });
 
 productRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateProductDTO),
+  zValidator('json', CreateProductDTO),
   async (c) => {
-    const data = c.req.valid("json");
+    const data = c.req.valid('json');
 
     const product = await db.item.create({
       data,
@@ -36,8 +36,8 @@ productRoutes.post(
   },
 );
 
-productRoutes.get("/:id", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+productRoutes.get('/:id', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const product = await db.item.findUnique({
     where: { id },
@@ -51,12 +51,12 @@ productRoutes.get("/:id", authenticated, async (c) => {
 });
 
 productRoutes.put(
-  "/:id",
+  '/:id',
   authenticated,
-  zValidator("json", UpdateProductDTO),
+  zValidator('json', UpdateProductDTO),
   async (c) => {
-    const id = parseInt(c.req.param("id"), 10);
-    const data = c.req.valid("json");
+    const id = parseInt(c.req.param('id'), 10);
+    const data = c.req.valid('json');
 
     const product = await db.item.update({
       where: { id },
@@ -71,8 +71,8 @@ productRoutes.put(
   },
 );
 
-productRoutes.post("/:id/archive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+productRoutes.post('/:id/archive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const product = await db.item.update({
     where: { id },
@@ -86,8 +86,8 @@ productRoutes.post("/:id/archive", authenticated, async (c) => {
   return c.json<ProductDTO>(toProductDTO(product));
 });
 
-productRoutes.post("/:id/unarchive", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+productRoutes.post('/:id/unarchive', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const product = await db.item.update({
     where: { id },
@@ -101,13 +101,13 @@ productRoutes.post("/:id/unarchive", authenticated, async (c) => {
   return c.json<ProductDTO>(toProductDTO(product));
 });
 
-productRoutes.get("/all", authenticated, async (c) => {
+productRoutes.get('/all', authenticated, async (c) => {
   const products = await db.item.findMany();
 
   return c.json<ProductDTO[]>(products.map(toProductDTO));
 });
 
-productRoutes.get("/archived", authenticated, async (c) => {
+productRoutes.get('/archived', authenticated, async (c) => {
   const products = await db.item.findMany({
     where: { archived: true },
   });
@@ -115,9 +115,9 @@ productRoutes.get("/archived", authenticated, async (c) => {
   return c.json<ProductDTO[]>(products.map(toProductDTO));
 });
 
-productRoutes.get("/stock", authenticated, async (c) => {
+productRoutes.get('/stock', authenticated, async (c) => {
   const lastProductStockHistory = await db.itemStockHistory.findFirst({
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
   });
 
   if (!lastProductStockHistory) {
@@ -176,4 +176,3 @@ productRoutes.get("/stock", authenticated, async (c) => {
 });
 
 export default productRoutes;
-

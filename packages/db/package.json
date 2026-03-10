@@ -18,17 +18,22 @@
     "build": "tsdown --config ../../tsdown.config.ts",
     "postinstall": "prisma generate",
     "generate": "dotenv -e .env.development -- prisma generate",
-    "push": "dotenv -e .env.development -- prisma db push"
+    "push": "dotenv -e .env.development -- prisma db push",
+    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
+    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
   },
   "dependencies": {
-    "@prisma/client": "^7.4.0",
     "@prisma/adapter-mariadb": "^7.4.0",
+    "@prisma/client": "^7.4.0",
     "dotenv": "^17.3.0",
     "prisma": "^7.4.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
     "dotenv-cli": "^8.0.0",
+    "oxfmt": "^0.37.0",
+    "oxlint": "^1.52.0",
     "tsdown": "^0.15.6"
   }
 }

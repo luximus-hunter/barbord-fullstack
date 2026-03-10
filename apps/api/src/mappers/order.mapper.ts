@@ -1,5 +1,5 @@
-import { OrderDTO } from "@barbord/contract";
-import { Order } from "@barbord/db";
+import { OrderDTO } from '@barbord/contract';
+import { Order } from '@barbord/db';
 
 export function toOrderDTO(order: Order): OrderDTO {
   return {

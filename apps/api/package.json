@@ -4,9 +4,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@hono/zod-validator": "^0.7.6",
     "@barbord/contract": "workspace:*",
     "@barbord/db": "workspace:*",
+    "@hono/zod-validator": "^0.7.6",
     "@vercel/blob": "^2.3.0",
     "bcrypt": "^6.0.0",
     "hono": "^4.4.0",
@@ -18,6 +18,8 @@
     "@types/bcrypt": "^6.0.0",
     "@types/node": "^20.11.0",
     "dotenv-cli": "^8.0.0",
+    "oxfmt": "^0.37.0",
+    "oxlint": "^1.52.0",
     "tsx": "^4.8.1",
     "typescript": "^5.4.0",
     "vite": "^8.0.0-beta.14"
@@ -29,6 +31,9 @@
   "scripts": {
     "dev": "dotenv -e .env.development -- tsx watch src/dev-server.ts",
     "build": "vite build",
-    "start": "node dist/index.mjs"
+    "start": "node dist/index.mjs",
+    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
+    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
   }
 }

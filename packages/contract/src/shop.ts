@@ -1,10 +1,10 @@
-import { UserDTO } from "./user.js";
-import { ProductDTO } from "./product.js";
-import { ProductCategoryDTO } from "./product-category.js";
-import { SettingsDTO } from "./settings.js";
-import { z } from "zod";
-import { AnnouncementDTO } from "./announcement.js";
-import { BadgeCategoryEnum } from "./enums.js";
+import { UserDTO } from './user.js';
+import { ProductDTO } from './product.js';
+import { ProductCategoryDTO } from './product-category.js';
+import { SettingsDTO } from './settings.js';
+import { z } from 'zod';
+import { AnnouncementDTO } from './announcement.js';
+import { BadgeCategoryEnum } from './enums.js';
 
 export const ShopDTO = z
   .object({
@@ -33,13 +33,7 @@ export const ShopDTO = z
         displayIndex: true,
       }),
     ),
-    settings: SettingsDTO.pick({
-      websiteTitle: true,
-      secondsPerAnnouncement: true,
-      warnAt: true,
-      fineAt: true,
-      fineAmount: true,
-    }),
+    settings: SettingsDTO,
     badges: z.array(
       UserDTO.pick({
         id: true,

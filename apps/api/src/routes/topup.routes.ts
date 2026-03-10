@@ -1,10 +1,10 @@
-import { zValidator } from "@hono/zod-validator";
-import { CreateTopupDTO, TopupDTO } from "@barbord/contract";
-import { db } from "@barbord/db";
-import { Hono } from "hono";
-import { toTopupDTO } from "../mappers/topup.mapper.js";
-import { authenticated } from "../middleware/authenticated.js";
-import { toSettingsDTO } from "../mappers/settings.mapper.js";
+import { zValidator } from '@hono/zod-validator';
+import { CreateTopupDTO, TopupDTO } from '@barbord/contract';
+import { db } from '@barbord/db';
+import { Hono } from 'hono';
+import { toTopupDTO } from '../mappers/topup.mapper.js';
+import { authenticated } from '../middleware/authenticated.js';
+import { toSettingsDTO } from '../mappers/settings.mapper.js';
 
 async function getSettings() {
   const settingsEntries = await db.settingsV2.findMany();
@@ -14,11 +14,11 @@ async function getSettings() {
 const topupRoutes = new Hono();
 
 topupRoutes.post(
-  "/",
+  '/',
   authenticated,
-  zValidator("json", CreateTopupDTO),
+  zValidator('json', CreateTopupDTO),
   async (c) => {
-    const data = c.req.valid("json");
+    const data = c.req.valid('json');
 
     const topup = await db.topup.create({
       data,
@@ -33,19 +33,19 @@ topupRoutes.post(
   },
 );
 
-topupRoutes.get("/user/:userId", authenticated, async (c) => {
-  const userId = parseInt(c.req.param("userId"), 10);
+topupRoutes.get('/user/:userId', authenticated, async (c) => {
+  const userId = parseInt(c.req.param('userId'), 10);
 
   const topups = await db.topup.findMany({
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
     where: { userId },
   });
 
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topupRoutes.get("/page/:page", authenticated, async (c) => {
-  const page = parseInt(c.req.param("page"), 10);
+topupRoutes.get('/page/:page', authenticated, async (c) => {
+  const page = parseInt(c.req.param('page'), 10);
 
   const settings = await getSettings();
   const pageSize = settings.itemsPerPage;
@@ -53,15 +53,15 @@ topupRoutes.get("/page/:page", authenticated, async (c) => {
   const topups = await db.topup.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
   });
 
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topupRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
-  const page = parseInt(c.req.param("page"), 10);
-  const userId = parseInt(c.req.param("userId"), 10);
+topupRoutes.get('/page/:page/user/:userId', authenticated, async (c) => {
+  const page = parseInt(c.req.param('page'), 10);
+  const userId = parseInt(c.req.param('userId'), 10);
 
   const settings = await getSettings();
   const pageSize = settings.itemsPerPage;
@@ -69,15 +69,15 @@ topupRoutes.get("/page/:page/user/:userId", authenticated, async (c) => {
   const topups = await db.topup.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
-    orderBy: { date: "desc" },
+    orderBy: { date: 'desc' },
     where: { userId },
   });
 
   return c.json<TopupDTO[]>(topups.map(toTopupDTO));
 });
 
-topupRoutes.post("/:id/undo", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+topupRoutes.post('/:id/undo', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const topup = await db.topup.findUnique({
     where: { id },
@@ -99,8 +99,8 @@ topupRoutes.post("/:id/undo", authenticated, async (c) => {
   return c.json({ success: true }, 200);
 });
 
-topupRoutes.post("/:id/approve", authenticated, async (c) => {
-  const id = parseInt(c.req.param("id"), 10);
+topupRoutes.post('/:id/approve', authenticated, async (c) => {
+  const id = parseInt(c.req.param('id'), 10);
 
   const topup = await db.topup.findUnique({
     where: { id },
@@ -119,4 +119,3 @@ topupRoutes.post("/:id/approve", authenticated, async (c) => {
 });
 
 export default topupRoutes;
-

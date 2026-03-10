@@ -1,19 +1,22 @@
-import { SettingsDTO } from "@barbord/contract";
-import { Hono } from "hono";
-import { toSettingsDTO, toSettingsV2Entries } from "../mappers/settings.mapper.js";
-import { db } from "@barbord/db";
-import { zValidator } from "@hono/zod-validator";
+import { SettingsDTO } from '@barbord/contract';
+import { Hono } from 'hono';
+import {
+  toSettingsDTO,
+  toSettingsV2Entries,
+} from '../mappers/settings.mapper.js';
+import { db } from '@barbord/db';
+import { zValidator } from '@hono/zod-validator';
 
 const settingsRoutes = new Hono();
 
-settingsRoutes.get("/", async (c) => {
+settingsRoutes.get('/', async (c) => {
   const settingsEntries = await db.settingsV2.findMany();
 
   return c.json<SettingsDTO>(toSettingsDTO(settingsEntries));
 });
 
-settingsRoutes.put("/", zValidator("json", SettingsDTO), async (c) => {
-  const data = c.req.valid("json");
+settingsRoutes.put('/', zValidator('json', SettingsDTO), async (c) => {
+  const data = c.req.valid('json');
   const settingsEntries = toSettingsV2Entries(data);
 
   await db.$transaction(async (tx) => {
@@ -30,4 +33,3 @@ settingsRoutes.put("/", zValidator("json", SettingsDTO), async (c) => {
 });
 
 export default settingsRoutes;
-

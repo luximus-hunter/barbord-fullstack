@@ -1,39 +1,39 @@
-import { AdminDTO, CreateAdminDTO, UpdateAdminDTO } from "@barbord/contract";
-import { fetchWithSchema } from "./lib/fetchWithSchema";
+import { AdminDTO, CreateAdminDTO, UpdateAdminDTO } from '@barbord/contract';
+import { fetchWithSchema } from './lib/fetchWithSchema';
 
 export const adminsGateway = (baseUrl: string) => ({
   get: () =>
     fetchWithSchema({
-      method: "GET",
-      url: baseUrl + "/admins",
+      method: 'GET',
+      url: baseUrl + '/admins',
       responseSchema: AdminDTO.array(),
     }),
   getAll: () =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/admins/all",
+      method: 'GET',
+      url: baseUrl + '/admins/all',
       responseSchema: AdminDTO.array(),
     }),
   getArchived: () =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/admins/archived",
+      method: 'GET',
+      url: baseUrl + '/admins/archived',
       responseSchema: AdminDTO.array(),
     }),
   getById: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "GET",
-      url: baseUrl + "/admins/" + id,
+      method: 'GET',
+      url: baseUrl + '/admins/' + id,
       responseSchema: AdminDTO,
     }),
   create: (body: CreateAdminDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "POST",
-      url: baseUrl + "/admins",
+      method: 'POST',
+      url: baseUrl + '/admins',
       body,
       bodySchema: CreateAdminDTO,
       responseSchema: AdminDTO,
@@ -41,8 +41,8 @@ export const adminsGateway = (baseUrl: string) => ({
   update: (id: number, body: UpdateAdminDTO) =>
     fetchWithSchema({
       useToken: true,
-      method: "PUT",
-      url: baseUrl + "/admins/" + id,
+      method: 'PUT',
+      url: baseUrl + '/admins/' + id,
       body,
       bodySchema: UpdateAdminDTO,
       responseSchema: AdminDTO,
@@ -50,13 +50,13 @@ export const adminsGateway = (baseUrl: string) => ({
   archive: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "POST",
-      url: baseUrl + "/admins/" + id + "/archive",
+      method: 'POST',
+      url: baseUrl + '/admins/' + id + '/archive',
     }),
   unarchive: (id: number) =>
     fetchWithSchema({
       useToken: true,
-      method: "POST",
-      url: baseUrl + "/admins/" + id + "/unarchive",
+      method: 'POST',
+      url: baseUrl + '/admins/' + id + '/unarchive',
     }),
 });

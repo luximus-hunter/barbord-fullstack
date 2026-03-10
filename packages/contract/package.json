@@ -11,7 +11,10 @@
   },
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsdown --config ../../tsdown.config.ts"
+    "build": "tsdown --config ../../tsdown.config.ts",
+    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
+    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
   },
   "packageManager": "pnpm@10.29.3",
   "dependencies": {
@@ -19,6 +22,8 @@
   },
   "devDependencies": {
     "@types/node": "^22.15.3",
+    "oxfmt": "^0.37.0",
+    "oxlint": "^1.52.0",
     "tsdown": "^0.15.6",
     "typescript": "^5.9.2"
   }

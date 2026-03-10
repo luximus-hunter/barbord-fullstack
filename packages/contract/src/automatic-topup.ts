@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { IntervalEnum } from "./enums.js";
+import { z } from 'zod';
+import { IntervalEnum } from './enums.js';
 
 export const AutomaticTopupDTO = z
   .object({

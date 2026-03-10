@@ -1,2 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin '@tailwindcss/forms';
+
+@layer base {
+  body {
+    @apply bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-50;
+  }
+}

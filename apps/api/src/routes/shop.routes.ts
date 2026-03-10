@@ -1,13 +1,13 @@
-import { ShopDTO } from "@barbord/contract";
-import { db } from "@barbord/db";
-import { Hono } from "hono";
-import { toSettingsDTO } from "../mappers/settings.mapper.js";
+import { ShopDTO } from '@barbord/contract';
+import { db } from '@barbord/db';
+import { Hono } from 'hono';
+import { toSettingsDTO } from '../mappers/settings.mapper.js';
 
 const shopRoutes = new Hono();
 
 // This GET endpoint is intentionally left unauthenticated so
 // clients can fetch shop data on app load before auth.
-shopRoutes.get("/", async (c) => {
+shopRoutes.get('/', async (c) => {
   const now = new Date();
   const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
@@ -32,7 +32,7 @@ shopRoutes.get("/", async (c) => {
         archived: false,
       },
       orderBy: {
-        lastorder: "desc",
+        lastorder: 'desc',
       },
     }),
     db.admin.findMany({
@@ -57,7 +57,7 @@ shopRoutes.get("/", async (c) => {
         archived: false,
       },
       orderBy: {
-        displayIndex: "asc",
+        displayIndex: 'asc',
       },
     }),
     db.itemCategory.findMany({
@@ -67,7 +67,7 @@ shopRoutes.get("/", async (c) => {
         displayIndex: true,
       },
       orderBy: {
-        displayIndex: "asc",
+        displayIndex: 'asc',
       },
     }),
     db.settingsV2.findMany(),
@@ -92,21 +92,21 @@ shopRoutes.get("/", async (c) => {
         },
       },
       orderBy: {
-        amount: "desc",
+        amount: 'desc',
       },
     }),
   ]);
 
   const settings = toSettingsDTO(settingsEntries);
 
-  const reducedUsers: ShopDTO["users"] = users.map((user) => ({
+  const reducedUsers: ShopDTO['users'] = users.map((user) => ({
     id: user.id,
     name: user.name,
     saldo: user.saldo.toNumber(),
     lastorder: user.lastorder?.toISOString() ?? null,
   }));
 
-  const reducedProducts: ShopDTO["products"] = products.map((product) => ({
+  const reducedProducts: ShopDTO['products'] = products.map((product) => ({
     id: product.id,
     name: product.name,
     price: product.price.toNumber(),
@@ -115,7 +115,7 @@ shopRoutes.get("/", async (c) => {
     itemImageId: product.itemImageId,
   }));
 
-  const badges: ShopDTO["badges"] = [];
+  const badges: ShopDTO['badges'] = [];
 
   const totalSpentPerUser: Record<number, number> = {};
   orders.forEach((order) => {
@@ -137,7 +137,7 @@ shopRoutes.get("/", async (c) => {
       badges.push({
         id: user.id,
         rank: index + 1,
-        category: "biggest-spender",
+        category: 'biggest-spender',
       });
     }
   });
@@ -149,7 +149,7 @@ shopRoutes.get("/", async (c) => {
       badges.push({
         id: user.id,
         rank: index + 1,
-        category: "biggest-topup",
+        category: 'biggest-topup',
       });
     }
   });
@@ -173,7 +173,7 @@ shopRoutes.get("/", async (c) => {
       badges.push({
         id: product.id,
         rank: index + 1,
-        category: "bestselling-product",
+        category: 'bestselling-product',
       });
     }
   });
@@ -184,7 +184,7 @@ shopRoutes.get("/", async (c) => {
       badges.push({
         id: user.id,
         rank: 1,
-        category: "admin",
+        category: 'admin',
       });
     }
 
@@ -192,7 +192,7 @@ shopRoutes.get("/", async (c) => {
       badges.push({
         id: user.id,
         rank: 1,
-        category: "developer",
+        category: 'developer',
       });
     }
   });

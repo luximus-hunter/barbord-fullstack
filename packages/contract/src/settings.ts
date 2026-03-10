@@ -1,5 +1,5 @@
-import { z } from "zod";
-import { WeekdayEnum } from "./enums.js";
+import { z } from 'zod';
+import { WeekdayEnum } from './enums.js';
 
 export const SettingsDTO = z
   .object({
