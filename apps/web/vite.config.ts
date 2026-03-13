@@ -6,8 +6,5 @@ export default defineConfig({
   plugins: [tailwindcss(), sveltekit()],
   build: {
     target: 'node22',
-    rollupOptions: {
-      external: ['@barbord/contract', '@barbord/gateway'],
-    },
   },
 });

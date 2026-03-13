@@ -9,8 +9,5 @@ export default defineConfig({
       formats: ['es'],
       fileName: 'index.mjs',
     },
-    rollupOptions: {
-      external: ['@barbord/contract', '@barbord/db'],
-    },
   },
 });
