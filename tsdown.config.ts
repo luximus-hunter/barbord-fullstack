@@ -27,7 +27,7 @@ export default defineConfig({
   dts: true,
   clean: true,
   platform: isDbPackage ? "node" : undefined,
-  target: isDbPackage ? "node20" : undefined,
+  target: "node22",
   external: isDbPackage
     ? ["@prisma/client", "@prisma/adapter-mariadb", "dotenv"]
     : [],
