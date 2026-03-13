@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "prebuild": "pnpm --filter @barbord/contract build && pnpm --filter @barbord/gateway build",
     "build": "vite build",
     "start": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
