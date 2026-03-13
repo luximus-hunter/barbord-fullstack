@@ -27,7 +27,8 @@
     @apply block text-sm font-medium text-neutral-700 dark:text-neutral-300;
   }
 
-  label input, label select {
-    @apply block w-full rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white ;
+  label input,
+  label select {
+    @apply block w-full rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white;
   }
 }

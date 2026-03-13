@@ -1,8 +1,8 @@
-import { Gateway } from "@barbord/gateway";
-import type { PageLoad } from "./$types";
+import { Gateway } from '@barbord/gateway';
+import type { PageLoad } from './$types';
 
 export const load: PageLoad = async () => {
   return {
-    users: await Gateway.users.get()
-  }
-};  
+    users: await Gateway.users.get(),
+  };
+};

@@ -1,8 +1,8 @@
 // Ensure that all routes are only rendered client side.
 // This app is statically generated.
 
-import { Gateway } from "@barbord/gateway";
-import type { LayoutLoad } from "./$types";
+import { Gateway } from '@barbord/gateway';
+import type { LayoutLoad } from './$types';
 
 export const prerender = false;
 export const ssr = false;
@@ -12,7 +12,7 @@ export const load: LayoutLoad = async () => {
 
   try {
     me = await Gateway.auth.me();
-  } catch { }
+  } catch {}
 
   return {
     me,

@@ -1,5 +1,5 @@
-import { goto, invalidateAll } from "$app/navigation";
-import { Gateway } from "@barbord/gateway";
+import { goto, invalidateAll } from '$app/navigation';
+import { Gateway } from '@barbord/gateway';
 
 export async function sveltekitLogout() {
   Gateway.auth.logout();
@@ -8,5 +8,5 @@ export async function sveltekitLogout() {
 
 export async function sveltekitLogin() {
   await invalidateAll();
-  setTimeout(() => goto("/backoffice"), 100);
+  setTimeout(() => goto('/backoffice'), 100);
 }

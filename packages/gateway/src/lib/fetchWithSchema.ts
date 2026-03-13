@@ -77,7 +77,9 @@ export async function fetchWithSchema<
   }
 
   // Get the token from localStorage if useToken is true
-  const token = useToken ? localStorage?.getItem(lsCachePrefix + 'token') ?? null : null;
+  const token = useToken
+    ? (localStorage?.getItem(lsCachePrefix + 'token') ?? null)
+    : null;
 
   // If useToken is true but no token is found (or running on server), return undefined
   if (useToken && !token) {
