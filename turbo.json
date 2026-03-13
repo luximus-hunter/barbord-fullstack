@@ -58,12 +58,10 @@
       ]
     },
     "lint": {
-      "cache": false,
-      "inputs": ["src/**/*.ts"]
+      "cache": true
     },
     "format": {
-      "cache": false,
-      "inputs": ["src/**/*.ts"]
+      "cache": true
     }
   }
 }
