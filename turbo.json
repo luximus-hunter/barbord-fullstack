@@ -18,6 +18,11 @@
       ]
     },
     "dev": {
+      "dependsOn": [
+        "@barbord/contract#build",
+        "@barbord/gateway#build",
+        "@barbord/db#build"
+      ],
       "cache": false,
       "persistent": true,
       "inputs": ["$TURBO_DEFAULT$", ".env*"],

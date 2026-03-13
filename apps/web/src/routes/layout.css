@@ -1,8 +1,33 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin '@tailwindcss/forms';
 
 @layer base {
+  .background-primary {
+    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white;
+  }
+
+  .background-secondary {
+    @apply bg-neutral-50 dark:bg-neutral-800;
+  }
+
+  .border-primary {
+    @apply border-neutral-300 dark:border-neutral-700;
+  }
+
   body {
-    @apply bg-stone-50 dark:bg-stone-900 text-stone-900 dark:text-stone-50;
+    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white min-h-screen flex flex-col;
+  }
+
+  .card {
+    @apply bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-md p-4 flex flex-col gap-4 border border-neutral-300 dark:border-neutral-700;
+  }
+
+  /* Form stuff */
+  label {
+    @apply block text-sm font-medium text-neutral-700 dark:text-neutral-300;
+  }
+
+  label input, label select {
+    @apply block w-full rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white ;
   }
 }

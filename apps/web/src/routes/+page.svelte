@@ -1,51 +1,38 @@
 <script lang="ts">
-  import Hono from "../components/logos/hono.svelte";
-  import Oxc from "../components/logos/oxc.svelte";
-  import Prisma from "../components/logos/prisma.svelte";
-  import Rolldown from "../components/logos/rolldown.svelte";
-  import Superform from "../components/logos/superform.svelte";
-  import Svelte from "../components/logos/svelte.svelte";
-  import Tailwindcss from "../components/logos/tailwindcss.svelte";
-  import Tsdown from "../components/logos/tsdown.svelte";
-  import Turborepo from "../components/logos/turborepo.svelte";
-  import Vite from "../components/logos/vite.svelte";
-  import Zod from "../components/logos/zod.svelte";
+  import { sveltekitLogout } from "$lib/auth";
+  import { CircleStar, Box, LogIn, LogOut, RotateCcw } from "lucide-svelte";
+  import Button from "../components/button.svelte";
+  import Titlebar from "../components/titlebar.svelte";
   import type { PageProps } from "./$types";
 
   let { data }: PageProps = $props();
-
-  $effect(() => {
-    console.log(data.shop);
-  });
+  let { settings, shop, me } = $derived(data);
 </script>
 
-<h1>{data.shop.settings.websiteTitle}</h1>
+<Titlebar title={settings.websiteTitle}>
+  <Button variant="secondary" onclick={() => location.reload()} size="icon">
+    <div class="hidden lg:block whitespace-nowrap">Herlaad</div>
+    <RotateCcw />
+  </Button>
+  <Button variant="secondary" size="icon">
+    <div class="hidden lg:block whitespace-nowrap">Statistieken</div>
+    <CircleStar />
+  </Button>
+  {#if !!me}
+    <Button variant="secondary" href="/backoffice" size="icon">
+      <div class="hidden lg:block whitespace-nowrap">Backoffice</div>
+      <Box />
+    </Button>
+    <Button variant="danger" onclick={sveltekitLogout} size="icon">
+      <div class="hidden lg:block whitespace-nowrap">Log out</div>
+      <LogOut />
+    </Button>
+  {:else}
+    <Button href="/login" variant="secondary" size="icon">
+      <div class="hidden lg:block whitespace-nowrap">Log in</div>
+      <LogIn />
+    </Button>
+  {/if}
+</Titlebar>
 
-<h2>Web</h2>
-
-<div class="grid grid-cols-4 gap-2 p-2 w-fit">
-  <Vite />
-  <Oxc />
-  <Svelte />
-  <Zod />
-  <Superform />
-  <Tailwindcss />
-</div>
-
-<h2>Api</h2>
-
-<div class="grid grid-cols-4 gap-2 p-2 w-fit">
-  <Hono />
-  <Oxc />
-  <Prisma />
-  <Zod />
-</div>
-
-<h2>Packages</h2>
-
-<div class="grid grid-cols-4 gap-2 p-2 w-fit">
-  <Turborepo />
-  <Oxc />
-  <Tsdown />
-  <Zod />
-</div>
+<h1>Shop</h1>

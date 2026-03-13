@@ -1,4 +1,4 @@
-import { z } from 'zod';
+﻿import { z } from 'zod';
 
 export const lsCachePrefix = 'gateway_cache_';
 
@@ -51,7 +51,7 @@ export async function fetchWithSchema<
 >): Promise<z.infer<ResponseSchema> | void> {
   // Check localStorage cache if lsCache is provided
   // If cached data exists and is not stale, return it immediately
-  if (lsCache && lsCache.key && lsCache.staleTime) {
+  if (localStorage && lsCache && lsCache.key && lsCache.staleTime) {
     const cacheKey = lsCachePrefix + lsCache.key;
     const cachedData = localStorage.getItem(cacheKey);
 
@@ -72,16 +72,16 @@ export async function fetchWithSchema<
     const bodyResult = bodySchema.safeParse(body);
 
     if (!bodyResult.success) {
-      throw new Error(`Invalid body format for ${url}`);
+      return Promise.reject(new Error(`Invalid body format for ${url}`));
     }
   }
 
   // Get the token from localStorage if useToken is true
-  const token = useToken ? localStorage.getItem(lsCachePrefix + 'token') : null;
+  const token = useToken ? localStorage?.getItem(lsCachePrefix + 'token') ?? null : null;
 
-  // If useToken is true but no token is found, throw an error
+  // If useToken is true but no token is found (or running on server), return undefined
   if (useToken && !token) {
-    throw new Error('No authentication token found');
+    return undefined;
   }
 
   // Make the fetch request with appropriate headers and body
@@ -96,11 +96,19 @@ export async function fetchWithSchema<
 
   // Check for HTTP errors
   if (!response.ok) {
-    throw new Error(`Failed to ${method} data to ${url}`);
+    if (response.status === 401) {
+      // If unauthorized, remove token from localStorage
+      localStorage.removeItem(lsCachePrefix + 'token');
+
+      // Reload the page to trigger any auth state changes in the app
+      location.reload();
+    }
+
+    return Promise.reject(new Error(`Failed to ${method} data to ${url}`));
   }
 
   // Invalidate localStorage cache if lsCacheInvalidate is provided
-  if (lsCache?.invalidateKeys) {
+  if (localStorage && lsCache?.invalidateKeys) {
     lsCache.invalidateKeys.forEach((key) => {
       localStorage.removeItem(lsCachePrefix + key);
     });
@@ -113,14 +121,14 @@ export async function fetchWithSchema<
   const json = await response.json();
   const responseResult = responseSchema.safeParse(json);
 
-  // If response validation fails, throw an error
+  // If response validation fails, reject the promise
   if (!responseResult.success) {
     console.error('Response validation error:', responseResult.error);
-    throw new Error(`Invalid response format from ${url}`);
+    return Promise.reject(new Error(`Invalid response format from ${url}`));
   }
 
   // Cache the response in localStorage if lsCache is provided
-  if (lsCache) {
+  if (localStorage && lsCache) {
     const cacheKey = lsCachePrefix + lsCache.key;
 
     localStorage.setItem(

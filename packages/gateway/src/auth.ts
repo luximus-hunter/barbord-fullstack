@@ -19,6 +19,7 @@ export const authGateway = (baseUrl: string) => ({
   },
   logout: () => {
     localStorage.removeItem(lsCachePrefix + 'token');
+    location.reload();
   },
   me: () =>
     fetchWithSchema({

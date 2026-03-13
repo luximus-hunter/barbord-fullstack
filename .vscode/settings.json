@@ -5,13 +5,25 @@
     "displayname",
     "oxfmtrc",
     "phonenumber",
+    "superforms",
     "topup",
     "Topup",
     "topups",
     "Topups"
   ],
-  "editor.codeActionsOnSave": {
-    "source.fixAll.oxc": "always"
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll.oxc": "always"
+  // },
+  "editor.defaultFormatter": "oxc.oxc-vscode",
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
-  "oxc.typeAware": true
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  // "editor.formatOnSave": true,
+  // "editor.formatOnSaveMode": "file",
+  // "[svelte]": {
+  //   "editor.formatOnSave": false,
+  // },
 }
