@@ -11,38 +11,38 @@
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
-    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
-    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
+    "lint": "oxlint -c ../../.oxlintrc.json",
+    "format": "oxfmt -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check -c ../../.oxfmtrc.json"
   },
   "dependencies": {
     "@barbord/contract": "workspace:*",
     "@barbord/gateway": "workspace:*",
-    "clsx": "^2.1.1",
-    "lucide-svelte": "^0.577.0",
-    "tailwind-merge": "^3.5.0",
-    "zod": "^4.3.6"
+    "clsx": "catalog:",
+    "lucide-svelte": "catalog:",
+    "tailwind-merge": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.50.2",
-    "@sveltejs/vite-plugin-svelte": "^7.0.0",
-    "@tailwindcss/forms": "^0.5.11",
-    "@tailwindcss/vite": "^4.2.1",
+    "@sveltejs/adapter-static": "catalog:",
+    "@sveltejs/kit": "catalog:",
+    "@sveltejs/vite-plugin-svelte": "catalog:",
+    "@tailwindcss/forms": "catalog:",
+    "@tailwindcss/vite": "catalog:",
     "@tauri-apps/api": "^2.10.1",
-    "oxfmt": "^0.37.0",
-    "oxlint": "^1.52.0",
-    "oxlint-tsgolint": "^0.16.0",
-    "svelte": "^5.51.0",
-    "svelte-check": "^4.4.2",
-    "sveltekit-superforms": "^2.30.0",
-    "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.0"
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "svelte": "catalog:",
+    "svelte-check": "catalog:",
+    "sveltekit-superforms": "catalog:",
+    "tailwindcss": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
   },
   "overrides": {
     "@tailwindcss/vite": {
-      "vite": "^8.0.0"
+      "vite": "catalog:"
     }
   },
   "engines": {

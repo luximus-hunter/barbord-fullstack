@@ -1,7 +1,8 @@
 {
   "name": "@barbord/db",
-  "type": "module",
   "version": "1.0.0",
+  "type": "module",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -9,32 +10,32 @@
       "default": "./dist/index.js"
     }
   },
-  "types": "./dist/index.d.ts",
-  "packageManager": "pnpm@10.29.3",
-  "prisma": {
-    "schema": "prisma/schema.prisma"
-  },
   "scripts": {
     "build": "tsdown --config ../../tsdown.config.ts",
     "postinstall": "prisma generate",
     "generate": "dotenv -e .env.development -- prisma generate",
     "push": "dotenv -e .env.development -- prisma db push",
-    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
-    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
-    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
+    "lint": "oxlint -c ../../.oxlintrc.json",
+    "format": "oxfmt -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check -c ../../.oxfmtrc.json"
   },
   "dependencies": {
-    "@prisma/adapter-mariadb": "^7.4.0",
-    "@prisma/client": "^7.4.0",
-    "dotenv": "^17.3.0",
-    "prisma": "^7.4.0"
+    "@prisma/adapter-mariadb": "catalog:",
+    "@prisma/client": "catalog:",
+    "dotenv": "catalog:",
+    "prisma": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "^22.15.3",
-    "dotenv-cli": "^8.0.0",
-    "oxfmt": "^0.37.0",
-    "oxlint": "^1.52.0",
-    "oxlint-tsgolint": "^0.16.0",
-    "tsdown": "^0.15.6"
+    "@types/node": "catalog:",
+    "dotenv-cli": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:"
+  },
+  "packageManager": "pnpm@10.29.3",
+  "prisma": {
+    "schema": "prisma/schema.prisma"
   }
 }

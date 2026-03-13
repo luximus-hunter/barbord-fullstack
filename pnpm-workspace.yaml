@@ -1,10 +1,46 @@
 packages:
   - apps/*
   - packages/*
-
 onlyBuiltDependencies:
   - '@prisma/engines'
   - bcrypt
   - esbuild
   - prisma
   - sharp
+catalog:
+  '@types/node': ^22.15.3
+  '@hono/node-server': ^1.13.0
+  '@hono/zod-validator': ^0.7.6
+  '@prisma/adapter-mariadb': ^7.5.0
+  '@prisma/client': ^7.5.0
+  '@sveltejs/adapter-static': ^3.0.10
+  '@sveltejs/kit': ^2.50.2
+  '@sveltejs/vite-plugin-svelte': ^7.0.0
+  '@tailwindcss/forms': ^0.5.11
+  '@tailwindcss/vite': ^4.2.1
+  '@tauri-apps/cli': ^2
+  '@tauri-apps/plugin-opener': ^2
+  '@types/bcrypt': ^6.0.0
+  '@vercel/blob': ^2.3.0
+  bcrypt: ^6.0.0
+  clsx: ^2.1.1
+  dotenv: ^17.3.0
+  dotenv-cli: ^8.0.0
+  hono: ^4.12.7
+  lucide-svelte: ^0.577.0
+  oxfmt: ^0.37.0
+  oxlint: ^1.52.0
+  oxlint-tsgolint: ^0.16.0
+  prisma: ^7.5.0
+  sharp: ^0.34.5
+  svelte: ^5.51.0
+  svelte-check: ^4.4.2
+  sveltekit-superforms: ^2.30.0
+  tailwind-merge: ^3.5.0
+  tailwindcss: ^4.1.18
+  tsdown: ^0.15.6
+  tsx: ^4.8.1
+  turbo: ^2.0.0
+  typescript: ^5.9.3
+  vite: ^8.0.0
+  zod: ^4.3.6

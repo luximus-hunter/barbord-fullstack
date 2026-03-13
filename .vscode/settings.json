@@ -9,21 +9,21 @@
     "topup",
     "Topup",
     "topups",
-    "Topups"
+    "Topups",
   ],
-  // "editor.codeActionsOnSave": {
-  //   "source.fixAll.oxc": "always"
-  // },
+  "oxc.fmt.configPath": ".oxfmtrc.json",
+  "oxc.typeAware": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.oxc": "always",
+  },
   "editor.defaultFormatter": "oxc.oxc-vscode",
-  "[json]": {
-    "editor.defaultFormatter": "oxc.oxc-vscode"
-  },
   "[svelte]": {
-    "editor.defaultFormatter": "svelte.svelte-vscode"
+    "editor.defaultFormatter": "svelte.svelte-vscode",
+    // "editor.formatOnSave": false,
   },
-  // "editor.formatOnSave": true,
-  // "editor.formatOnSaveMode": "file",
-  // "[svelte]": {
-  //   "editor.formatOnSave": false,
-  // },
+  "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
+  "workbench.tree.indent": 12,
+  "typescript.native-preview.goMemLimit": "16GiB",
+  "js/ts.experimental.useTsgo": true,
 }

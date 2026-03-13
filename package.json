@@ -20,7 +20,7 @@
     "format": "turbo run format"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
-    "tsdown": "^0.15.6"
+    "turbo": "catalog:",
+    "tsdown": "catalog:"
   }
 }

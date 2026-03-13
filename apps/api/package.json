@@ -1,40 +1,40 @@
 {
   "name": "@barbord/api",
-  "type": "module",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@barbord/contract": "workspace:*",
-    "@barbord/db": "workspace:*",
-    "@hono/zod-validator": "^0.7.6",
-    "@vercel/blob": "^2.3.0",
-    "bcrypt": "^6.0.0",
-    "hono": "^4.12.7",
-    "sharp": "^0.34.5",
-    "zod": "^4.3.6"
-  },
-  "devDependencies": {
-    "@hono/node-server": "^1.13.0",
-    "@types/bcrypt": "^6.0.0",
-    "@types/node": "^20.11.0",
-    "dotenv-cli": "^8.0.0",
-    "oxfmt": "^0.37.0",
-    "oxlint": "^1.52.0",
-    "oxlint-tsgolint": "^0.16.0",
-    "tsx": "^4.8.1",
-    "typescript": "^5.4.0",
-    "vite": "^8.0.0-beta.14"
-  },
-  "engines": {
-    "node": "=22",
-    "pnpm": "=10"
-  },
+  "type": "module",
   "scripts": {
     "dev": "dotenv -e .env.development -- tsx watch src/dev-server.ts",
     "build": "vite build",
     "start": "node dist/index.mjs",
-    "lint": "oxlint *.ts -c ../../.oxlintrc.json",
-    "format": "oxfmt *.ts -c ../../.oxfmtrc.json",
-    "format:check": "oxfmt --check *.ts -c ../../.oxfmtrc.json"
+    "lint": "oxlint -c ../../.oxlintrc.json",
+    "format": "oxfmt -c ../../.oxfmtrc.json",
+    "format:check": "oxfmt --check -c ../../.oxfmtrc.json"
+  },
+  "dependencies": {
+    "@barbord/contract": "workspace:*",
+    "@barbord/db": "workspace:*",
+    "@hono/zod-validator": "catalog:",
+    "@vercel/blob": "catalog:",
+    "bcrypt": "catalog:",
+    "hono": "catalog:",
+    "sharp": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@hono/node-server": "catalog:",
+    "@types/bcrypt": "catalog:",
+    "@types/node": "catalog:",
+    "dotenv-cli": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:"
+  },
+  "engines": {
+    "node": "=22",
+    "pnpm": "=10"
   }
 }
