@@ -4,8 +4,8 @@
 
 **Apps**
 
-- [ ] `@barbord/web`: A website frontend built with `TBD`
-- [ ] `@barbord/desktop`: A desktop application built with Tauri
+- [ ] `@barbord/web`: A website frontend built with Sveltekit
+- [x] `@barbord/desktop`: A Tauri wrapper for `@barbord/web`
 - [x] `@barbord/api`: A backend api server built with Hono
 
 **Packages**
@@ -15,22 +15,20 @@
 - [x] `@barbord/gateway`: A package for communication with the backend api. This is a client side package.
 
 > **Currently in progress: `@barbord/web`:**
->
-> The entire progress is in [TODO.md](./TODO.md)
 
 **Relationships**
 
 ```mermaid
 flowchart TB
   subgraph "Apps"
-    WEB["@barbord/web (Website)"]
-    DESKTOP["@barbord/desktop (Desktop)"]
+    WEB["@barbord/web (Sveltekit)"]
+    DESKTOP["@barbord/desktop (Tauri)"]
     GATEWAY["@barbord/gateway (API Library)"]
   end
 
 
   subgraph "Server"
-    API["@barbord/api (Hono API)"]
+    API["@barbord/api (Hono)"]
     CONTRACT["@barbord/contract (Zod Schemas)"]
     DB["@barbord/db (Prisma)"]
   end
@@ -56,8 +54,8 @@ To get started with the Barbord Monorepo, follow these steps:
 3. Set up the environment variables by creating mode-specific env files. Copy each `.env.example` and create:
    - `.env.development` for local development values
    - `.env.production` for production build/runtime values
-   These are used automatically by the scripts (`dev` uses development, `build` uses production).
-   Do this for:
+     These are used automatically by the scripts (`dev` uses development, `build` uses production).
+     Do this for:
    - `@barbord/api`
    - `@barbord/web`
    - `@barbord/db`
@@ -107,7 +105,3 @@ You can reset the repo with `./reset.ps1` on Windows. This removes:
 - `.turbo` for all
 - `dist` for all
 - `target` for @barbord/desktop
-
-## Colors
-
-https://coolors.co/2d2d2a-4c4c47-848fa5-c14953-fff4e9
