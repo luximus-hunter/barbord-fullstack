@@ -14,8 +14,9 @@
     md: "px-4 py-1.5 text-md",
     lg: "px-6 py-2 text-lg",
     xl: "px-8 py-2.5 text-xl",
-    icon: "h-9 whitespace-nowrap p-2",
+    icon: "h-9 whitespace-nowrap p-2 aspect-square flex-0",
     square: "h-9 w-9 p-0",
+    sort: "h-6 w-6 aspect-square flex-0",
   };
 
   const buttonVariants = {
@@ -27,6 +28,7 @@
       "bg-green-500 text-white hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500",
     danger:
       "bg-red-500 text-white hover:bg-red-600 dark:bg-red-400 dark:hover:bg-red-500",
+    menu: "bg-neutral-100 text-neutral-900 hover:bg-neutral-200 dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-white flex items-center gap-2 justify-start px-4 py-2",
   };
 
   type ButtonSize = keyof typeof buttonSizes;
@@ -40,24 +42,21 @@
     children?: () => any;
   };
 
-  let { children, variant, size, href, ...props }: Props = $props();
+  let { children, variant, size, href, class: userClass, ...props }: Props =
+    $props();
 
   const className = $derived(
     cn(
       baseStyles,
       buttonVariants[variant || "primary"],
       buttonSizes[size || "md"],
-      props.class,
+      userClass,
     ),
   );
 </script>
 
 {#if href}
-  <a
-    {href}
-    class={className}
-    {...props as HTMLAnchorAttributes}
-  >
+  <a {href} class={className} {...props as HTMLAnchorAttributes}>
     {#if children}
       {@render children()}
     {/if}

@@ -1,25 +1,45 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
+@plugin 'tailwind-scrollbar';
+
+@utility background-primary {
+  @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white;
+}
+
+@utility background-secondary {
+  @apply bg-neutral-50 dark:bg-neutral-800;
+}
+
+@utility background-tertiary {
+  @apply bg-white dark:bg-neutral-700;
+}
+
+@utility text-primary {
+  @apply text-neutral-900 dark:text-white;
+}
+
+@utility border-primary {
+  @apply border-neutral-300 dark:border-neutral-700;
+}
 
 @layer base {
-  .background-primary {
-    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white;
+  * {
+    @apply box-border overscroll-none;
   }
 
-  .background-secondary {
-    @apply bg-neutral-50 dark:bg-neutral-800;
-  }
-
-  .border-primary {
-    @apply border-neutral-300 dark:border-neutral-700;
+  div {
+    @apply scrollbar scrollbar-thumb-neutral-300 dark:scrollbar-thumb-neutral-700 scrollbar-track-transparent;
   }
 
   body {
-    @apply bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-white min-h-screen flex flex-col;
+    @apply background-primary h-screen flex flex-col overflow-auto text-primary;
+
+    /* Rubber banding fix */
+    @apply fixed w-full h-full overflow-hidden;
   }
 
   .card {
-    @apply bg-neutral-50 dark:bg-neutral-800 rounded-lg shadow-md p-4 flex flex-col gap-4 border border-neutral-300 dark:border-neutral-700;
+    @apply background-secondary rounded-lg p-4 flex flex-col gap-4 border border-primary;
   }
 
   /* Form stuff */
@@ -29,6 +49,63 @@
 
   label input,
   label select {
-    @apply block w-full rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white;
+    @apply block w-full rounded border border-neutral-300 dark:border-neutral-700 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white h-9;
+  }
+
+  .title {
+    @apply text-2xl font-bold;
+  }
+
+  button svg,
+  a svg {
+    @apply w-5! h-5!;
+  }
+
+  .button-group {
+    @apply flex rounded overflow-hidden;
+  }
+
+  .button-group button,
+  .button-group a {
+    @apply rounded-none!;
+  }
+
+  /* Table */
+  .table-container {
+    @apply overflow-auto w-full border border-primary background-secondary rounded;
+  }
+
+  table {
+    @apply w-full text-left background-secondary;
+  }
+
+  /* table, */
+  tbody tr {
+    @apply border-collapse not-last:border-b border-primary;
+  }
+
+  thead tr {
+    @apply border-collapse border-b border-primary;
+  }
+
+  tbody tr {
+    @apply hover:background-tertiary;
+  }
+
+  tbody td,
+  thead th {
+    @apply px-4 py-2;
+  }
+
+  thead th > div {
+    @apply flex gap-2 items-center;
+  }
+
+  thead th button {
+    @apply h-6 w-6 p-0;
+  }
+
+  thead th button svg {
+    @apply w-4! h-4!;
   }
 }

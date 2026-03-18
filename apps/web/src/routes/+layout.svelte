@@ -9,7 +9,7 @@
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
 {#if kioskMode}
-  <div class="select-none min-h-screen flex flex-col">
+  <div class="select-none h-screen flex flex-col overflow-hidden">
     {@render children()}
   </div>
 {:else}

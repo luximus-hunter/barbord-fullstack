@@ -19,7 +19,7 @@
   "editor.defaultFormatter": "oxc.oxc-vscode",
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode",
-    // "editor.formatOnSave": false,
+    "editor.formatOnSave": false,
   },
   "editor.formatOnSave": true,
   "editor.formatOnSaveMode": "file",
