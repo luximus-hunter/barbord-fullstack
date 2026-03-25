@@ -62,7 +62,7 @@
   }
 
   .button-group {
-    @apply flex rounded overflow-hidden;
+    @apply flex rounded overflow-hidden w-min;
   }
 
   .button-group button,
@@ -85,7 +85,11 @@
   }
 
   thead tr {
-    @apply border-collapse border-b border-primary;
+    @apply border-collapse;
+  }
+
+  thead {
+    @apply sticky top-0 z-10 background-secondary border-b! border-primary!;
   }
 
   tbody tr {
@@ -94,7 +98,7 @@
 
   tbody td,
   thead th {
-    @apply px-4 py-2;
+    @apply px-4 py-2 text-nowrap max-w-64 w-fit text-ellipsis overflow-clip;
   }
 
   thead th > div {

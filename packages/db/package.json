@@ -11,6 +11,7 @@
     }
   },
   "scripts": {
+    "dev": "tsdown --watch --config ../../tsdown.config.ts",
     "build": "tsdown --config ../../tsdown.config.ts",
     "postinstall": "prisma generate",
     "generate": "dotenv -e .env.development -- prisma generate",

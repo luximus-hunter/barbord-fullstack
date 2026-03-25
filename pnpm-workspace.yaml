@@ -27,7 +27,7 @@ catalog:
   dotenv: ^17.3.0
   dotenv-cli: ^8.0.0
   hono: ^4.12.7
-  lucide-svelte: ^0.577.0
+  lucide-svelte: ^1.0.1
   oxfmt: ^0.37.0
   oxlint: ^1.52.0
   oxlint-tsgolint: ^0.16.0

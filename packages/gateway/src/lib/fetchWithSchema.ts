@@ -17,6 +17,7 @@ type FetchWithSchemaParams<
     invalidateKeys?: string[];
   };
   useToken?: boolean;
+  fetch?: typeof fetch;
 };
 
 export async function fetchWithSchema<
@@ -45,6 +46,7 @@ export async function fetchWithSchema<
   responseSchema,
   lsCache,
   useToken,
+  fetch: customFetch,
 }: FetchWithSchemaParams<
   BodySchema,
   ResponseSchema
@@ -87,7 +89,8 @@ export async function fetchWithSchema<
   }
 
   // Make the fetch request with appropriate headers and body
-  const response = await fetch(url, {
+  const fetchFn = customFetch || fetch;
+  const response = await fetchFn(url, {
     headers: {
       'Content-Type': 'application/json',
       ...(token ? { Authorization: `Bearer ${token}` } : {}),

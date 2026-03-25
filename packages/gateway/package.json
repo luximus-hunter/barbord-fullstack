@@ -11,6 +11,7 @@
     }
   },
   "scripts": {
+    "dev": "tsdown --watch --config ../../tsdown.config.ts",
     "build": "tsdown --config ../../tsdown.config.ts",
     "lint": "oxlint -c ../../.oxlintrc.json",
     "format": "oxfmt -c ../../.oxfmtrc.json",

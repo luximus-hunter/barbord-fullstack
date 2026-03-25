@@ -64,8 +64,8 @@ catalogs:
       specifier: ^4.12.7
       version: 4.12.7
     lucide-svelte:
-      specifier: ^0.577.0
-      version: 0.577.0
+      specifier: ^1.0.1
+      version: 1.0.1
     oxfmt:
       specifier: ^0.37.0
       version: 0.37.0
@@ -210,7 +210,7 @@ importers:
         version: 2.1.1
       lucide-svelte:
         specifier: 'catalog:'
-        version: 0.577.0(svelte@5.53.11)
+        version: 1.0.1(svelte@5.53.11)
       tailwind-merge:
         specifier: 'catalog:'
         version: 3.5.0
@@ -2085,8 +2085,8 @@ packages:
     resolution: {integrity: sha512-DqC6n3QQ77zdFpCMASA1a3Jlb64Hv2N2DciFGkO/4L9+q/IpIAuRlKOvCXabtRW6cQf8usbmM6BE/TOPysCdIA==}
     engines: {bun: '>=1.0.0', deno: '>=1.30.0', node: '>=8.0.0'}
 
-  lucide-svelte@0.577.0:
-    resolution: {integrity: sha512-0i88o57KsaHWnc80J57fY99CWzlZsSdtH5kKjLUJa7z8dum/9/AbINNLzJ7NiRFUdOgMnfAmJt8jFbW2zeC5qQ==}
+  lucide-svelte@1.0.1:
+    resolution: {integrity: sha512-WvzZgk0pqzgda+AErLvgWxHkfg/+GgUwqKMRHvzt0IqyMdmyEDzDCk3Z+Wo/3y753oIgx8u9Q4eUbWkghFa8Jg==}
     peerDependencies:
       svelte: ^3 || ^4 || ^5.0.0-next.42
 
@@ -3888,7 +3888,7 @@ snapshots:
 
   lru.min@1.1.4: {}
 
-  lucide-svelte@0.577.0(svelte@5.53.11):
+  lucide-svelte@1.0.1(svelte@5.53.11):
     dependencies:
       svelte: 5.53.11
 

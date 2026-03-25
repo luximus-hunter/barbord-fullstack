@@ -1,23 +1,16 @@
 {
   "name": "barbord-fullstack",
   "private": true,
-  "packageManager": "pnpm@10.32.1+sha512.a706938f0e89ac1456b6563eab4edf1d1faf3368d1191fc5c59790e96dc918e4456ab2e67d613de1043d2e8c81f87303e6b40d4ffeca9df15ef1ad567348f2be",
+  "packageManager": "pnpm@10.33.0+sha512.10568bb4a6afb58c9eb3630da90cc9516417abebd3fabbe6739f0ae795728da1491e9db5a544c76ad8eb7570f5c4bb3d6c637b2cb41bfdcdb47fa823c8649319",
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
-    "build:libs": "turbo build --filter @barbord/contract --filter @barbord/gateway --filter @barbord/db",
     "start": "turbo start",
-    "db:generate": "pnpm --filter @barbord/db generate",
-    "db:push": "pnpm --filter @barbord/db push",
-    "api:dev": "pnpm --filter @barbord/api dev",
-    "api:build": "pnpm --filter @barbord/api build",
-    "api:generate": "pnpm --filter @barbord/api run generate",
-    "api:start": "pnpm --filter @barbord/api start",
-    "web:dev": "pnpm --filter @barbord/web dev",
-    "web:build": "pnpm --filter @barbord/web build",
-    "web:start": "pnpm --filter @barbord/web start",
+    "build:libs": "turbo build --filter @barbord/contract --filter @barbord/gateway --filter @barbord/db",
     "lint": "turbo run lint",
-    "format": "turbo run format"
+    "format": "turbo run format",
+    "db:generate": "pnpm --filter @barbord/db generate",
+    "db:push": "pnpm --filter @barbord/db push"
   },
   "devDependencies": {
     "turbo": "catalog:",

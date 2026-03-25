@@ -15,7 +15,7 @@
     lg: "px-6 py-2 text-lg",
     xl: "px-8 py-2.5 text-xl",
     icon: "h-9 whitespace-nowrap p-2 aspect-square flex-0",
-    square: "h-9 w-9 p-0",
+    square: "h-9 w-9 p-0 aspect-square flex-0",
     sort: "h-6 w-6 aspect-square flex-0",
   };
 

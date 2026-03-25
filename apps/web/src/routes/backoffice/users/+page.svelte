@@ -3,15 +3,18 @@
     ArrowDown01,
     ArrowDown10,
     ArrowDownAZ,
-    ArrowDownZA,
     ClockArrowDown,
     FunnelX,
     Pencil,
+    Archive,
+    Plus,
   } from "lucide-svelte";
   import Button from "../../../components/button.svelte";
   import type { PageProps } from "./$types";
   import { useSearch } from "$lib/search.svelte";
   import Saldo from "../../../components/renderers/saldo.svelte";
+  import Generic from "../../../components/renderers/generic.svelte";
+  import Date from "../../../components/renderers/date.svelte";
 
   let { data }: PageProps = $props();
   const users = $derived(data.users);
@@ -21,9 +24,23 @@
     searchFields: ["name", "email", "phonenumber"],
     initialSort: ["name", "asc"],
   });
+
+  function archiveUser(userId: number) {
+    if (confirm("Weet je zeker dat je deze gebruiker wilt archiveren?")) {
+      alert("Deze functie is nog niet geïmplementeerd.");
+    }
+  }
 </script>
 
-<h1 class="title">Users</h1>
+<div class="flex justify-between items-center">
+  <h1 class="title">Users</h1>
+  <div>
+    <Button href="/backoffice/users/new" size="icon">
+      <Plus />
+      <div class="hidden lg:block whitespace-nowrap">Nieuwe gebruiker</div>
+    </Button>
+  </div>
+</div>
 
 <div class="flex gap-2 items-end">
   <label for="search" class="flex-1">
@@ -113,46 +130,65 @@
         <tr>
           <td>{user.id}</td>
           <td>{user.name}</td>
-          <td>{user.email}</td>
-          <td>{user.phonenumber}</td>
-          <td>{user.lastorder || "Geen"}</td>
+          <td>
+            {#if user.email}
+              <a
+                href={`mailto:${user.email}`}
+                class="text-blue-500 hover:underline"
+              >
+                {user.email}
+              </a>
+            {:else}
+              Onbekend
+            {/if}
+          </td>
+          <td>
+            {#if user.phonenumber}
+              <a
+                href={`tel:${user.phonenumber}`}
+                class="text-blue-500 hover:underline"
+              >
+                {user.phonenumber}
+              </a>
+            {:else}
+              Onbekend
+            {/if}
+          </td>
+          <td>
+            {#if user.lastorder}
+              <Date date={user.lastorder} />
+            {/if}
+          </td>
           <td>
             <Saldo saldo={user.saldo} {settings} />
           </td>
           <td>
             {#if user.saldoReminders > 0}
-              <div
-                class="bg-red-300 text-red-900 dark:bg-red-700 dark:text-white font-bold font-mono h-9 px-2 rounded flex items-center justify-center"
-              >
-                {user.saldoReminders}x
-              </div>
+              <Generic color="crimson">{user.saldoReminders}x</Generic>
             {/if}
           </td>
           <td>
             <div class="flex gap-2">
               {#if user.exemptForFines}
-                <div
-                  class="bg-neutral-200 text-neutral-900 dark:bg-neutral-600 dark:text-white font-mono h-9 px-2 rounded flex items-center justify-center"
-                >
-                  Boetes
-                </div>
+                <Generic color="neutral">Boetes</Generic>
               {/if}
               {#if user.exemptForReminders}
-                <div
-                  class="bg-neutral-200 text-neutral-900 dark:bg-neutral-600 dark:text-white font-mono h-9 px-2 rounded flex items-center justify-center"
-                >
-                  Herinneringen
-                </div>
+                <Generic color="neutral">Herinneringen</Generic>
               {/if}
             </div>
           </td>
           <td>
             <div class="button-group">
-              <Button href={`/backoffice/users/${user.id}/edit`} size="icon">
+              <Button href={`/backoffice/users/${user.id}`} size="icon">
                 <Pencil />
               </Button>
-              <Button href={`/backoffice/orders/users/${user.id}`} size="icon"
-              ></Button>
+              <Button
+                onclick={() => archiveUser(user.id)}
+                size="icon"
+                variant="danger"
+              >
+                <Archive />
+              </Button>
             </div>
           </td>
         </tr>
